@@ -1,6 +1,7 @@
 <?php
 
 class Usuario{
+    //Atributos de la clase
     private $id_usuario;
     private $nombre;
     private $email;
@@ -12,9 +13,8 @@ class Usuario{
     public function __construct(){
         
     }
-    
-    //GETTERS
 
+    //GETTERS
     public function getId_usuario(){
         return $this->id_usuario;
     }

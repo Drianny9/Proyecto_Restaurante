@@ -1,5 +1,5 @@
 <?php
-include_once 'model/Equipo.php';
+include_once 'model/Usuario.php';
 include_once 'database/database.php';
 
 
