@@ -6,7 +6,7 @@ include_once 'database/database.php';
 class ProductoDAO{
 
     public static function getProductoById($id_producto){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `producto` WHERE id_producto = ?");
         $stmt->bind_param('i', $id_producto); // La 'i' indica el tipo de dato (integer)
         $stmt->execute();
@@ -19,7 +19,7 @@ class ProductoDAO{
     }
 
     public static function getProductos(){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `producto`");
         $stmt->execute();
         $results = $stmt->get_result();

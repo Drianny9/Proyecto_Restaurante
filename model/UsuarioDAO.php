@@ -6,7 +6,7 @@ include_once 'database/database.php';
 class Usuario{
 
     public static function getUsuarioById($id_usuario){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM usuario WHERE id_usuario = ?");
         $stmt->bind_param('i', $id_usuario); //La 'i' indica el tipo de dato (integer)
         $stmt->execute();
@@ -19,7 +19,7 @@ class Usuario{
     }
 
     public static function getUsuarios(){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM usuario");
         $stmt->execute();
         $results = $stmt->get_result();

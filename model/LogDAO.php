@@ -6,7 +6,7 @@ include_once 'database/database.php';
 class Usuario{
 
     public static function getLogById($id_log){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `log` WHERE id_log = ?");
         $stmt->bind_param('i', $id_log); //La 'i' indica el tipo de dato (integer)
         $stmt->execute();
@@ -19,7 +19,7 @@ class Usuario{
     }
 
     public static function getLogs(){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `log`");
         $stmt->execute();
         $results = $stmt->get_result();

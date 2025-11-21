@@ -6,7 +6,7 @@ include_once 'database/database.php';
 class LineaPedidoDAO{
 
     public static function getLineaPedidoById($id_linea){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `linea_pedido` WHERE id_linea = ?");
         $stmt->bind_param('i', $id_linea); // La 'i' indica el tipo de dato (integer)
         $stmt->execute();
@@ -19,7 +19,7 @@ class LineaPedidoDAO{
     }
 
     public static function getLineasPedido(){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `linea_pedido`");
         $stmt->execute();
         $results = $stmt->get_result();

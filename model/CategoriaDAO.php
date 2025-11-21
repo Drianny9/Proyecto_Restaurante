@@ -6,7 +6,7 @@ include_once 'database/database.php';
 class CategoriaDAO{
 
     public static function getCategoriaById($idCategoria){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `categoria` WHERE id_categoria = ?");
         $stmt->bind_param('i', $idCategoria); // La 'i' indica el tipo de dato (integer)
         $stmt->execute();
@@ -19,7 +19,7 @@ class CategoriaDAO{
     }
 
     public static function getCategorias(){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `categoria`");
         $stmt->execute();
         $results = $stmt->get_result();

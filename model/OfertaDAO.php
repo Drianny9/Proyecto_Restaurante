@@ -6,7 +6,7 @@ include_once 'database/database.php';
 class OfertaDAO{
 
     public static function getOfertaById($id_oferta){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `oferta` WHERE id_oferta = ?");
         $stmt->bind_param('i', $id_oferta); // La 'i' indica el tipo de dato (integer)
         $stmt->execute();
@@ -19,7 +19,7 @@ class OfertaDAO{
     }
 
     public static function getOfertas(){
-        $con = DataBase::connect();
+        $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `oferta`");
         $stmt->execute();
         $results = $stmt->get_result();
