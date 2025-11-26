@@ -2,12 +2,12 @@
 
 class Categoria{
     //Atributos de la clase
-    private $idCategoria;
+    private $id_categoria;
     private $nombre;
 
     //GETTERS
     public function getIdCategoria(){
-        return $this->idCategoria;
+        return $this->id_categoria;
     }
 
     public function getNombre(){
@@ -15,8 +15,8 @@ class Categoria{
     }
 
     //SETTERS
-    public function setIdCategoria($idCategoria){
-        $this->idCategoria = $idCategoria;
+    public function setIdCategoria($id_categoria){
+        $this->id_categoria = $id_categoria;
     }
 
     public function setNombre($nombre){
