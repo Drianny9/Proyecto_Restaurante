@@ -1,9 +1,11 @@
 <?php
-// Redirigir al usuario a la página principal
-include_once 'controller/CategoriaController.php';
-include_once 'view/home.php';
+include_once 'controller/HomeController.php';
 
 // Verificar si se pasa un controlador en la URL
+$controller = $_GET['controller']; //Hacer lo mismo con action
+if (!isset($controller)) {
+    $controller = 'Home';
+}
 if (isset($_GET['controller'])) {
     $nombre_controller = $_GET['controller'] . 'Controller';
     if (class_exists($nombre_controller)) {
@@ -18,7 +20,8 @@ if (isset($_GET['controller'])) {
         echo "<h1>Controlador no encontrado</h1>";
     }
 } else {
+
     // Acción por defecto si no se pasa un controlador
-    $categoriaController = new CategoriaController();
-    $categoriaController->index();
+    //$homeController = new HomeController(); // creamos objeto del controlador de HOME
+    //$homeController->verHome();
 }
