@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 <!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
         <!--logo del restaurante-->
         <a class="navbar-brand fw-bold fs-3" href="../index.php">

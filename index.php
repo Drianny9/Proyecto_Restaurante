@@ -3,6 +3,7 @@ include_once 'controller/HomeController.php';
 
 // Verificar si se pasa un controlador en la URL
 $controller = $_GET['controller']; //Hacer lo mismo con action
+
 if (!isset($controller)) {
     $controller = 'Home';
 }
