@@ -1,17 +1,271 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+/* Variables de color */
+:root {
+    --cupra-dark: #1a1d23;
+    --cupra-copper: #b87333;
+    --cupra-light: #ffffff;
+    --overlay-dark: rgba(0, 0, 0, 0.5);
 }
 
+/* Reset y estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-.home-container{
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background-color: var(--cupra-dark);
+    color: var(--cupra-light);
+    overflow-x: hidden;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     background-image: url('../images/Fondo home.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 0 4rem;
+}
+
+.hero-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-title {
+    font-size: 8rem;
+    font-weight: 700;
+    letter-spacing: 10px;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    color: var(--cupra-light);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-price {
+    margin-bottom: 2rem;
+}
+
+.price-label {
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.price-amount {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--cupra-light);
+}
+
+.hero-buttons .btn {
+    border-radius: 0;
+    padding: 0.8rem 2rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.hero-buttons .btn-outline-light {
+    border: 2px solid var(--cupra-light);
+}
+
+.hero-buttons .btn-outline-light:hover {
+    background-color: var(--cupra-light);
+    color: var(--cupra-dark);
+}
+
+.hero-buttons .btn-light:hover {
+    background-color: var(--cupra-copper);
+    color: var(--cupra-light);
+}
+
+/* ===== CARRUSEL DE PRODUCTOS ===== */
+.products-carousel {
+    position: relative;
+    padding: 3rem 0;
+    background-color: var(--cupra-dark);
+    overflow: hidden;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-track {
     display: flex;
-    justify-content: center;
+    gap: 2rem;
+    transition: transform 0.5s ease;
+    padding: 0 2rem;
+}
+
+.carousel-item {
+    flex: 0 0 250px;
+    cursor: pointer;
+}
+
+.product-card {
+    position: relative;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.image-placeholder {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, var(--cupra-copper) 0%, #8b5a2b 100%);
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.image-placeholder::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background-image: url('../images/Logo cupra_eats.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(0) invert(1);
+    opacity: 0.3;
+}
+
+.product-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--cupra-light);
+    text-align: center;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+    .hero-title {
+        font-size: 5rem;
+        letter-spacing: 5px;
+    }
+    
+    .price-amount {
+        font-size: 2rem;
+    }
+    
+    .navbar-nav {
+        padding: 1rem 0;
+    }
+    
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3.5rem;
+        letter-spacing: 3px;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons .btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.8rem;
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .carousel-track {
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .carousel-item {
+        flex: 0 0 200px;
+    }
+    
+    .product-card {
+        height: 250px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content {
+        padding: 6rem 0 2rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .price-amount {
+        font-size: 1.5rem;
+    }
+    
+    .navbar .logo {
+        height: 30px;
+    }
 }

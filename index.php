@@ -1,28 +1,33 @@
 <?php
 include_once 'controller/HomeController.php';
 
-// Verificar si se pasa un controlador en la URL
-$controller = $_GET['controller']; //Hacer lo mismo con action
+// Valores por defecto
+$defaultController = 'Home';
+$defaultAction = 'verHome';
 
-if (!isset($controller)) {
-    $controller = 'Home';
-}
-if (isset($_GET['controller'])) {
-    $nombre_controller = $_GET['controller'] . 'Controller';
+// Leer controlador de forma segura
+$controller = $_GET['controller'] ?? null;
+
+// Decidir que controlador instanciar
+if ($controller) {
+    $nombre_controller = $controller . 'Controller';
     if (class_exists($nombre_controller)) {
         $controller = new $nombre_controller();
-        $action = isset($_GET['action']) ? $_GET['action'] : 'index';
-        if (method_exists($controller, $action)) {
-            $controller->$action();
-        } else {
-            echo "<h1>Acción no encontrada</h1>";
-        }
     } else {
         echo "<h1>Controlador no encontrado</h1>";
+        exit;
     }
 } else {
+    // Sin parametro => HomeController por defecto
+    $controller = new HomeController();
+}
 
-    // Acción por defecto si no se pasa un controlador
-    //$homeController = new HomeController(); // creamos objeto del controlador de HOME
-    //$homeController->verHome();
+// Forzar accion inicial a 'verHome'
+$action = $defaultAction;
+
+// Ejecutar accion si existe
+if (method_exists($controller, $action)) {
+    $controller->$action();
+} else {
+    echo "<h1>Acción no encontrada</h1>";
 }

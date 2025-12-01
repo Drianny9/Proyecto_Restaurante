@@ -1,13 +1,144 @@
-nav.navbar {
-    background: none !important;
-    border: none !important;
+/* Variables de color para el nav */
+:root {
+    --cupra-dark: #1a1d23;
+    --cupra-copper: #b87333;
+    --cupra-light: #ffffff;
 }
 
-nav.navbar{
-    padding: 0;
-    margin: 0;
+/* ===== NAVBAR FIJA ===== */
+.navbar {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    padding: 1rem 0;
+    z-index: 1000;
 }
 
-nav.container{
-    padding: 0;
+.navbar.scrolled {
+    background-color: rgba(26, 29, 35, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.navbar .logo {
+    height: 200px;
+    width: auto;
+}
+
+.navbar-nav .nav-link {
+    color: var(--cupra-light) !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--cupra-copper) !important;
+}
+
+.navbar .btn-outline-light {
+    border: 2px solid var(--cupra-light);
+    color: var(--cupra-light);
+    border-radius: 0;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.navbar .btn-outline-light:hover {
+    background-color: var(--cupra-light);
+    color: var(--cupra-dark);
+}
+
+.navbar .btn-light {
+    background-color: var(--cupra-light);
+    color: var(--cupra-dark);
+    border: none;
+    border-radius: 0;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.navbar .btn-light:hover {
+    background-color: var(--cupra-copper);
+    color: var(--cupra-light);
+}
+
+/* Iconos circulares */
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.icon-circle:hover {
+    background-color: var(--cupra-copper);
+    border-color: var(--cupra-copper);
+}
+
+/* Hamburger menu */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--cupra-light);
+    transition: all 0.3s ease;
+}
+
+/* ===== OFFCANVAS MENU ===== */
+.offcanvas {
+    background-color: var(--cupra-dark);
+}
+
+.offcanvas-title {
+    color: var(--cupra-light);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.offcanvas-body .nav-link {
+    color: var(--cupra-light);
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.offcanvas-body .nav-link:hover {
+    color: var(--cupra-copper);
+    padding-left: 1rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+    .navbar-nav {
+        padding: 1rem 0;
+    }
+    
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar .logo {
+        height: 30px;
+    }
 }
