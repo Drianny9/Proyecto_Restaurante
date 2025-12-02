@@ -1,12 +1,13 @@
 <?php
 include_once 'controller/HomeController.php';
+include_once 'controller/LogController.php';
 
 // Valores por defecto
 $defaultController = 'Home';
 $defaultAction = 'verHome';
 
 // Leer controlador de forma segura
-$controller = $_GET['controller'] ?? null;
+$controller = $_GET['controller'] ?? null; //Asigna el valor de la izquierda si encuentra controller y si no null
 
 // Decidir que controlador instanciar
 if ($controller) {
@@ -23,7 +24,7 @@ if ($controller) {
 }
 
 // Forzar accion inicial a 'verHome'
-$action = $defaultAction;
+$action = $_GET['action'] ?? $defaultAction;
 
 // Ejecutar accion si existe
 if (method_exists($controller, $action)) {
