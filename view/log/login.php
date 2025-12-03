@@ -1,5 +1,7 @@
 <!-- Incluimos el nav -->
-
+<head>
+    <link rel="stylesheet" href="assets/css/log.css">
+</head>
 <body>
     <?php include_once 'view/includes/nav.php'; ?>
 
