@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main class="main-content">
+
+        <nav>
+            <button class="menu-btn active" data-target="usuarios">Usuarios</button>
+            <button class="menu-btn" data-target="productos">Productos</button>
+            <button class="menu-btn" data-target="categorias">Categorías</button>
+        </nav>
+
+        <section id="Inicio" class="content-section">
+            
+        </section>
+    </main>
+
+    <script>
+        //OBTENER BOTONES
+        const botonesMenu = document.querySelectorAll("menu-btn");
+        
+        //OBTENER SECCIONES
+        const secciones = document.querySelectorAll(".content-section");
+
+        botonesMenu.forEach((boton) => {
+            boton.addEventListener("click", () =>{
+                //Obtengo a que botón le he dado click
+                const target = boton.getAttribute("data-target");
+                setActiveSection(target);
+            });
+        });
+
+        function setActiveSection(target) {
+            secciones.forEach((seccion) => {
+                seccion.classList.remove("active-section");
+            });
+
+            document.getElementById(target).classList.add("active-section");
+        }
+
+        const usuarios = fetch('usuarios.json')
+            .then(response => response.json());
+        usuarios.forEach(usuario => {
+            const nuevoUsuario = new User(usuario.nombre, usuario.email);
+        });
+
+        class User {
+            constructor(nombre, email) {
+                this.nombre = nombre;
+                this.email = email;
+            }
+            getInfo() {
+                return `Nombre: ${this.nombre}, Email: ${this.email}`;
+            }
+        }
+
+        class Pedidos{
+            constructor(id, producto, cantidad) {
+                this.id = id;
+                this.producto = producto;
+                this.cantidad = cantidad;
+            }
+            getDetalles() {
+                return `Pedido ID: ${this.id}, Producto: ${this.producto}, Cantidad: ${this.cantidad}`;
+            }
+        }
+
+    </script>
+</body>
+</html>
