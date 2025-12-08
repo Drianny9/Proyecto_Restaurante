@@ -48,7 +48,7 @@ class UsuarioDAO{
 
             //Verifica la contraseña (si está hasheada/encriptada)
             if (password_verify($contraseña, $usuario->getContraseña())) {
-                $con->close();  
+                $con->close();
                 return $usuario; //Login correcto
             }
         }
