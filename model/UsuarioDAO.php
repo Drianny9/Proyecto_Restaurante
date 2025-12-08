@@ -2,7 +2,6 @@
 include_once 'model/Usuario.php';
 include_once 'database/database.php';
 
-
 class UsuarioDAO{
 
     public static function getUsuarioById($id_usuario)
@@ -55,5 +54,32 @@ class UsuarioDAO{
 
         $con->close();
         return null; //Login incorrecto
+    }
+
+    //Funcion para registrar usuarios
+    public static function registrarusuarios($nombre, $email, $contraseña, $direccion = null, $telefono = null, $rol = 'user'){
+        $con = Database::connect();
+
+        //Verificamos si el email ya existe
+        $stmt = $con->prepare("SELECT id_usuario FROM usuario WHERE email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $con->close();
+            return false; //Ya existe el email
+        }
+
+        //Hasheamos la contraseña
+        $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT);
+
+        //Insertamos nuevo usuario
+        $stmt = $con->prepare("INSERT INTO usuario(nombre, email, contraseña, direccion, telefono, rol) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt-> bind_param('ssssss', $nombre, $email, $contraseña_hash, $direccion, $telefono, $rol);
+        $exito = $stmt->execute();
+
+        $con->close();
+        return $exito;
     }
 }

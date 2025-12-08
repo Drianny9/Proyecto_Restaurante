@@ -22,10 +22,9 @@ class LogController
             $usuario = UsuarioDAO::validarUsuario($email, $contraseña);
 
             if ($usuario) {
-                // Login correcto
-                session_start();
+                //Redireccion a Home
                 $_SESSION['usuario'] = $usuario;
-                header('Location: index.php');
+                header('Location: index.php?controller=Home&action=verHome');
                 exit;
             } else {
                 // Login incorrecto
