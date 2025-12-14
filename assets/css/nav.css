@@ -152,10 +152,20 @@
     .navbar .navbar-brand {
         flex: 0 0 auto; /* permitir tamaño natural en móvil */
     }
+    
+    /* En movil el espaciador es mas pequeño */
+    .nav-spacer {
+        height: 80px;
+    }
 }
 
 /* Asegurar que la parte de navegación ocupe el espacio restante */
 .navbar .navbar-collapse {
     flex: 1 1 auto;
     justify-content: flex-end;
+}
+
+/* ===== ESPACIADOR PARA EL NAV FIJO ===== */
+.nav-spacer {
+    height: 220px;
 }

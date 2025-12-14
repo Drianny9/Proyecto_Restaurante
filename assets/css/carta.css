@@ -1,0 +1,238 @@
+/* 
+ * Estilos para la carta de productos
+ * Estructura: filtros a la izquierda, grid de productos a la derecha
+ */
+
+/* Contenedor principal de la carta */
+.carta-container {
+    padding: 20px;
+    padding-top: 300px;
+    min-height: 100vh;
+}
+
+/* Cabecera con titulo y descripcion */
+.carta-header {
+    margin-bottom: 30px;
+}
+
+.carta-header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.carta-header p {
+    font-size: 1rem;
+}
+
+/* Contenedor flex: filtros + productos */
+.carta-content {
+    display: flex;
+    gap: 30px;
+}
+
+/* =====================
+   PANEL DE FILTROS
+   ===================== */
+.filtros-panel {
+    width: 250px;
+    flex-shrink: 0; /* No se encoge */
+    padding: 20px;
+    border-radius: 10px;
+    height: fit-content; /* Solo ocupa lo necesario */
+    position: sticky; /* Se queda fijo al hacer scroll */
+    top: 100px;
+}
+
+.filtros-panel h2 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.filtros-subtitulo {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+}
+
+.categoria-titulo {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+/* Cada item de filtro (checkbox + nombre) */
+.filtro-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.filtro-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.filtro-nombre {
+    font-size: 0.9rem;
+}
+
+/* =====================
+   GRID DE PRODUCTOS
+   ===================== */
+.productos-grid {
+    flex: 1; /* Ocupa el espacio restante */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas por defecto */
+    gap: 25px;
+}
+
+/* =====================
+   TARJETA DE PRODUCTO
+   ===================== */
+.producto-card {
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor de la imagen */
+.producto-imagen-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La imagen cubre todo el espacio sin deformarse */
+}
+
+/* Boton de favorito (corazon) */
+.btn-favorito {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* Etiqueta de categoria (NUEVO, OFERTA, etc) */
+.producto-etiqueta {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* Informacion del producto */
+.producto-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.producto-nombre {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.producto-descripcion {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.producto-precio {
+    margin: 5px 0;
+}
+
+.precio-label {
+    font-size: 0.8rem;
+}
+
+.precio-valor {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.producto-calorias {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Checkbox añadir al carrito */
+.añadir-carrito {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.carrito-checkbox {
+    width: 16px;
+    height: 16px;
+}
+
+/* Boton ver detalles */
+.btn-ver-detalles {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.btn-ver-detalles:hover {
+    opacity: 0.8;
+}
+
+/* Mensaje cuando no hay productos */
+.no-productos {
+    grid-column: 1 / -1; /* Ocupa todas las columnas */
+    text-align: center;
+    padding: 50px;
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 992px) {
+    .productos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Moviles */
+@media (max-width: 768px) {
+    .carta-content {
+        flex-direction: column; /* Filtros arriba, productos abajo */
+    }
+
+    .filtros-panel {
+        width: 100%;
+        position: static; /* Ya no es sticky en movil */
+    }
+
+    .productos-grid {
+        grid-template-columns: 1fr; /* 1 columna en movil */
+    }
+}

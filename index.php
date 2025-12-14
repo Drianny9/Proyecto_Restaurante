@@ -3,6 +3,7 @@ session_start();
 include_once 'controller/HomeController.php';
 include_once 'controller/LogController.php';
 include_once 'controller/RegistroController.php';
+include_once 'controller/ProductoController.php';
 
 // Valores por defecto
 $defaultController = 'Home';
