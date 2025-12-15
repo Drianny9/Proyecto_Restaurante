@@ -26,6 +26,14 @@ include_once 'model/UsuarioDAO.php';
                     return;
                 }
 
+                //Verificamos que el email contenga @
+                if (strpos($email, '@') === false) { //strpos busca posición de subcadena en una cadena strpos(cadena, subcadena)
+                    $error = "El email debe contener el símbolo @.";
+                    $view = 'view/log/registro.php';
+                    include_once 'view/main.php';
+                    return;
+                }
+
                 //Con filter_var validamos si el email es correcto
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $error = "El email no es válido.";
