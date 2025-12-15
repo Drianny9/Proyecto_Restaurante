@@ -33,4 +33,31 @@ class ProductoDAO{
         return $listaProductos;
     }
 
+    public static function crearProducto($nombre, $descripcion, $id_categoria, $precio_base, $imagen) {
+        $con = Database::connect();
+        $stmt = $con->prepare("INSERT INTO producto (nombre, descripcion, id_categoria, precio_base, imagen) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssids', $nombre, $descripcion, $id_categoria, $precio_base, $imagen);
+        $resultado = $stmt->execute();
+        $con->close();
+        return $resultado;
+    }
+
+    public static function actualizarProducto($id, $nombre, $descripcion, $id_categoria, $precio_base, $imagen) {
+        $con = Database::connect();
+        $stmt = $con->prepare("UPDATE producto SET nombre=?, descripcion=?, id_categoria=?, precio_base=?, imagen=? WHERE id_producto=?");
+        $stmt->bind_param('ssidsi', $nombre, $descripcion, $id_categoria, $precio_base, $imagen, $id);
+        $resultado = $stmt->execute();
+        $con->close();
+        return $resultado;
+    }
+
+    public static function eliminarProducto($id) {
+        $con = Database::connect();
+        $stmt = $con->prepare("DELETE FROM producto WHERE id_producto=?");
+        $stmt->bind_param('i', $id);
+        $resultado = $stmt->execute();
+        $con->close();
+        return $resultado;
+    }
+
 }

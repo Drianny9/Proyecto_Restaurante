@@ -1,0 +1,17 @@
+<?php
+
+//Configuración comun en todas las APIs
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+//Función para respuestas en JSON
+function respuestaJSON($estado, $data = null, $mensaje = null, $codigo = 200) { //200 codigo HTTP de OK
+    http_response_code($codigo);
+    $respuesta = ['estado' => $estado]; //Creamos array con el estado
+    if($data !== null) $respuesta['data'] = $data; //Si hay datos los añadimos al array
+    if($mensaje !== null) $respuesta['mensaje'] = $mensaje;
+    echo json_encode($respuesta); //Convertimos el array a json
+    exit;
+}
