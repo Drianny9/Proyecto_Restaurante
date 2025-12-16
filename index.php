@@ -10,7 +10,13 @@ $defaultController = 'Home';
 $defaultAction = 'verHome';
 
 // Leer controlador de forma segura
-$controller = $_GET['controller'] ?? null; //Asigna el valor de la izquierda si encuentra controller y si no null
+//$controller = $_GET['controller'] ?? null; Asigna el valor de la izquierda si encuentra controller y si no null, es lo mismo que hacer el if
+if (isset($_GET['controller'])) {
+    $controller = $_GET['controller'];
+} else {
+    $controller = null;
+}
+
 
 // Decidir que controlador instanciar
 if ($controller) {

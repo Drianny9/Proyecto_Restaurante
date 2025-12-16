@@ -5,12 +5,12 @@ include_once 'model/ProductoDAO.php';
 //Para saber que acción quiere hacer el cliente (GET, POST, PUT o DELETE)
 $metodo = $_SERVER['REQUEST_METHOD'];
 
-switch($metodo){
+switch ($metodo) {
     case 'GET':
         //Obtener todos los productos o uno por ID
-        if(isset($_GET['id'])){
+        if (isset($_GET['id'])) {
             $producto = ProductoDAO::getProductoById($_GET['id']);
-            if($producto){
+            if ($producto) {
                 respuestaJSON('Exito', $producto);
             } else {
                 respuestaJSON('Fallido', null, 'Producto no encontrado', 404);
@@ -26,17 +26,20 @@ switch($metodo){
         //Crear nuevo producto
         //json_decode convierte de json a array asociativo de php
         $data = json_decode(file_get_contents("php://input"), true); //file_get_contents obtiene el json que envia el cliente
-        
-        if(isset($data['nombre']) && isset($data['precio_base']) && isset($data['id_categoria'])){
-            $resultado = ProductoDAO::crearProducto(
-                $data['nombre'],
-                $data['descripcion'] ?? null,
-                $data['id_categoria'],
-                $data['precio_base'],
-                $data['imagen'] ?? null
-            );
-            
-            if($resultado){
+
+        //Validaciones de campos obligatorios
+        if (isset($data['nombre']) && isset($data['precio_base']) && isset($data['id_categoria'])) {
+            //Preparamos los datos
+            $nombre = $data['nombre'];
+            $descripcion = isset($data['descripcion']) ? $data['descripcion'] : null;
+            $id_categoria = $data['id_categoria'];
+            $precio_base = $data['precio_base'];
+            $imagen = isset($data['imagen']) ? $data['imagen'] : null;
+
+            //Llamamos al DAO para crear producto
+            $resultado = ProductoDAO::crearProducto($nombre, $descripcion, $id_categoria, $precio_base, $imagen); //Llamada al metodo estatico del DAO
+
+            if ($resultado) {
                 respuestaJSON('Exito', null, 'Producto creado correctamente', 201);
             } else {
                 respuestaJSON('Fallido', null, 'Error al crear producto', 500);
@@ -49,18 +52,20 @@ switch($metodo){
     case 'PUT':
         //Actualizar producto existente
         $data = json_decode(file_get_contents("php://input"), true);
-        
-        if(isset($data['id'])){
-            $resultado = ProductoDAO::actualizarProducto(
-                $data['id'],
-                $data['nombre'],
-                $data['descripcion'] ?? null,
-                $data['id_categoria'],
-                $data['precio_base'],
-                $data['imagen'] ?? null
-            );
-            
-            if($resultado){
+
+        if (isset($data['id'])) {
+            // Preparar datos
+            $id = $data['id'];
+            $nombre = $data['nombre'];
+            $descripcion = isset($data['descripcion']) ? $data['descripcion'] : null;
+            $id_categoria = $data['id_categoria'];
+            $precio_base = $data['precio_base'];
+            $imagen = isset($data['imagen']) ? $data['imagen'] : null;
+
+            // Actualizar en la BD
+            $resultado = ProductoDAO::actualizarProducto($id, $nombre, $descripcion, $id_categoria, $precio_base, $imagen);
+
+            if ($resultado) {
                 respuestaJSON('Exito', null, 'Producto actualizado correctamente');
             } else {
                 respuestaJSON('Fallido', null, 'Error al actualizar producto', 500);
@@ -73,11 +78,11 @@ switch($metodo){
     case 'DELETE':
         //Eliminar producto
         $data = json_decode(file_get_contents("php://input"), true);
-        
-        if(isset($data['id'])){
+
+        if (isset($data['id'])) {
             $resultado = ProductoDAO::eliminarProducto($data['id']);
-            
-            if($resultado){
+
+            if ($resultado) {
                 respuestaJSON('Exito', null, 'Producto eliminado correctamente');
             } else {
                 respuestaJSON('Fallido', null, 'Error al eliminar producto', 500);
@@ -86,7 +91,8 @@ switch($metodo){
             respuestaJSON('Fallido', null, 'ID no proporcionado', 400);
         }
         break;
-
+    
+    //Metodo no permitido
     default:
         respuestaJSON('Fallido', null, 'Metodo no permitido', 405);
         break;
