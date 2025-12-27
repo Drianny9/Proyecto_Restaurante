@@ -1,6 +1,6 @@
 <?php
 
-class Producto{
+class Producto implements JsonSerializable {
     //Atributos de la clase
     private $id_producto;
     private $nombre;
@@ -8,6 +8,18 @@ class Producto{
     private $id_categoria;
     private $precio_base;
     private $imagen;
+
+    //Metodo para serializar a JSON
+    public function jsonSerialize(): mixed {
+        return [
+            'id_producto' => $this->id_producto,
+            'nombre' => $this->nombre,
+            'descripcion' => $this->descripcion,
+            'id_categoria' => $this->id_categoria,
+            'precio_base' => $this->precio_base,
+            'imagen' => $this->imagen
+        ];
+    }
 
     //GETTERS
     public function getId_producto(){

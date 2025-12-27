@@ -1,5 +1,9 @@
 <?php
+//Primero incluimos la clase Usuario para que no se inicie sesion antes
+include_once 'model/Usuario.php';
+
 session_start();
+
 include_once 'controller/HomeController.php';
 include_once 'controller/LogController.php';
 include_once 'controller/RegistroController.php';

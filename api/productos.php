@@ -1,6 +1,6 @@
 <?php
 include_once 'config.php';
-include_once 'model/ProductoDAO.php';
+include_once '../model/ProductoDAO.php';
 
 //Para saber que acción quiere hacer el cliente (GET, POST, PUT o DELETE)
 $metodo = $_SERVER['REQUEST_METHOD'];

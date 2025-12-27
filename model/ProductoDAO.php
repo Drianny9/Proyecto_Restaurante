@@ -1,6 +1,6 @@
 <?php
-include_once 'model/Producto.php';
-include_once 'database/database.php';
+include_once __DIR__ . '/Producto.php';
+include_once __DIR__ . '/../database/database.php';
 
 
 class ProductoDAO{

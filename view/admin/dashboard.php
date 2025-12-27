@@ -1,19 +1,20 @@
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 <main class="admin-container">
     
-    <!-- Navegación lateral -->
+    <!-- Navegacion lateral -->
     <aside class="admin-sidebar">
         <h2>Panel Admin</h2>
         <nav class="admin-nav">
-            <button class="menu-btn active" data-target="usuarios">
+            <button class="menu-btn" data-target="usuarios">
                 <i class="bi bi-people"></i> Usuarios
             </button>
-            <button class="menu-btn" data-target="productos">
+            <button class="menu-btn active" data-target="productos">
                 <i class="bi bi-box"></i> Productos
             </button>
             <button class="menu-btn" data-target="categorias">
-                <i class="bi bi-tags"></i> Categorías
+                <i class="bi bi-tags"></i> Categorias
             </button>
             <button class="menu-btn" data-target="pedidos">
                 <i class="bi bi-cart"></i> Pedidos
@@ -24,11 +25,11 @@
     <!-- Contenido principal -->
     <div class="admin-content">
         
-        <!-- SECCIÓN USUARIOS -->
-        <section id="usuarios" class="content-section active-section">
+        <!-- SECCION USUARIOS -->
+        <section id="usuarios" class="content-section">
             <div class="section-header">
-                <h1>Gestión de Usuarios</h1>
-                <button class="btn btn-primary" onclick="abrirModalNuevoUsuario()">
+                <h1>Gestion de Usuarios</h1>
+                <button class="btn btn-primary" id="btn-nuevo-usuario">
                     <i class="bi bi-plus-circle"></i> Nuevo Usuario
                 </button>
             </div>
@@ -41,42 +42,22 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Rol</th>
-                            <th>Teléfono</th>
+                            <th>Telefono</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php if (!empty($usuarios)): ?>
-                            <?php foreach ($usuarios as $usuario): ?>
-                                <tr>
-                                    <td><?= $usuario->getId_usuario() ?></td>
-                                    <td><?= $usuario->getNombre() ?></td>
-                                    <td><?= $usuario->getEmail() ?></td>
-                                    <td><?= $usuario->getRol() ?></td>
-                                    <td><?= $usuario->getTelefono() ?></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-warning" onclick="editarUsuario(<?= $usuario->getId_usuario() ?>)">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger" onclick="eliminarUsuario(<?= $usuario->getId_usuario() ?>)">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr><td colspan="6">No hay usuarios</td></tr>
-                        <?php endif; ?>
+                    <tbody id="tabla-usuarios">
+                        <!-- Los datos se cargan con JavaScript desde la API -->
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- SECCIÓN PRODUCTOS -->
-        <section id="productos" class="content-section">
+        <!-- SECCION PRODUCTOS -->
+        <section id="productos" class="content-section active-section">
             <div class="section-header">
-                <h1>Gestión de Productos</h1>
-                <button class="btn btn-primary" onclick="abrirModalNuevoProducto()">
+                <h1>Gestion de Productos</h1>
+                <button class="btn btn-primary" id="btn-nuevo-producto">
                     <i class="bi bi-plus-circle"></i> Nuevo Producto
                 </button>
             </div>
@@ -87,49 +68,25 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Categoría</th>
+                            <th>Descripción</th>
                             <th>Precio</th>
                             <th>Imagen</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php if (!empty($productos)): ?>
-                            <?php foreach ($productos as $producto): ?>
-                                <tr>
-                                    <td><?= $producto->getId_producto() ?></td>
-                                    <td><?= $producto->getNombre() ?></td>
-                                    <td><?= $producto->getId_categoria() ?></td>
-                                    <td><?= number_format($producto->getPrecio_base(), 2) ?> €</td>
-                                    <td>
-                                        <img src="assets/images/productos/<?= $producto->getImagen() ?>" 
-                                             alt="<?= $producto->getNombre() ?>" 
-                                             style="width: 50px; height: 50px; object-fit: cover;">
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-warning" onclick="editarProducto(<?= $producto->getId_producto() ?>)">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger" onclick="eliminarProducto(<?= $producto->getId_producto() ?>)">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr><td colspan="6">No hay productos</td></tr>
-                        <?php endif; ?>
+                    <tbody id="tabla-productos">
+                        <!-- Los datos se cargan con JavaScript desde la API -->
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- SECCIÓN CATEGORÍAS -->
+        <!-- SECCION CATEGORIAS -->
         <section id="categorias" class="content-section">
             <div class="section-header">
-                <h1>Gestión de Categorías</h1>
-                <button class="btn btn-primary" onclick="abrirModalNuevaCategoria()">
-                    <i class="bi bi-plus-circle"></i> Nueva Categoría
+                <h1>Gestion de Categorias</h1>
+                <button class="btn btn-primary" id="btn-nueva-categoria">
+                    <i class="bi bi-plus-circle"></i> Nueva Categoria
                 </button>
             </div>
             
@@ -142,40 +99,91 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php if (!empty($categorias)): ?>
-                            <?php foreach ($categorias as $categoria): ?>
-                                <tr>
-                                    <td><?= $categoria->getIdCategoria() ?></td>
-                                    <td><?= $categoria->getNombre() ?></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-warning" onclick="editarCategoria(<?= $categoria->getIdCategoria() ?>)">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger" onclick="eliminarCategoria(<?= $categoria->getIdCategoria() ?>)">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr><td colspan="3">No hay categorías</td></tr>
-                        <?php endif; ?>
+                    <tbody id="tabla-categorias">
+                        <!-- Los datos se cargan con JavaScript desde la API -->
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- SECCIÓN PEDIDOS -->
+        <!-- SECCION PEDIDOS -->
         <section id="pedidos" class="content-section">
             <div class="section-header">
-                <h1>Gestión de Pedidos</h1>
+                <h1>Gestion de Pedidos</h1>
             </div>
-            <p>Aquí irán los pedidos...</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th>Estado</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-pedidos">
+                        <!-- Los datos se cargan con JavaScript desde la API -->
+                    </tbody>
+                </table>
+            </div>
         </section>
 
     </div>
 </main>
 
-<!-- JavaScript para cambiar secciones -->
+<!-- MODAL PARA CREAR/EDITAR PRODUCTO -->
+<div class="modal fade" id="modalProducto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalProductoTitulo">Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formProducto">
+                    <input type="hidden" id="producto-id">
+                    
+                    <div class="mb-3">
+                        <label for="producto-nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="producto-nombre" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="producto-descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="producto-descripcion" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="producto-categoria" class="form-label">Categoría</label>
+                        <select class="form-select" id="producto-categoria" required>
+                            <option value="">Selecciona una categoría</option>
+                            <option value="1">Entrantes</option>
+                            <option value="2">Principales</option>
+                            <option value="3">Postres</option>
+                            <option value="4">Bebidas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="producto-precio" class="form-label">Precio (€)</label>
+                        <input type="number" step="0.01" class="form-control" id="producto-precio" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="producto-imagen" class="form-label">Imagen (nombre del archivo)</label>
+                        <input type="text" class="form-control" id="producto-imagen" placeholder="ejemplo.png">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn-guardar-producto">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript para el panel admin -->
 <script src="assets/js/admin.js"></script>
