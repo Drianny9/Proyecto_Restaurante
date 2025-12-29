@@ -33,4 +33,13 @@ class LineaPedidoDAO{
         return $listaLineasPedido;
     }
 
+     public static function crearLineaPedido($id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta) {
+        $con = Database::connect();
+        $stmt = $con->prepare("INSERT INTO `linea_pedido` (id_pedido, id_producto, precio_unidad, cantidad, id_oferta) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param('iidii', $id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta);
+        $results = $stmt->execute();
+        $con->close();
+        return $results;
+    }
+
 }

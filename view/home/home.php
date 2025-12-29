@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="assets/css/home.css">
 </head>
 <body>
-    <!-- Incluir Navbar -->
-    <?php include_once 'view/includes/nav.php'; ?>
-
     <!-- Sección Portada -->
     <section class="portada">
         <div class="portada-overlay"></div>

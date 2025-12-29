@@ -20,7 +20,7 @@ class PedidoDAO{
 
     public static function getPedidos(){
         $con = Database::connect();
-        $stmt = $con->prepare("SELECT * FROM `pedido`");
+        $stmt = $con->prepare("SELECT * FROM `pedido` ORDER BY fecha DESC");
         $stmt->execute();
         $results = $stmt->get_result();
 
@@ -31,6 +31,42 @@ class PedidoDAO{
 
         $con->close();
         return $listaPedidos;
+    }
+
+    public static function getPedidosByUsuario(){
+        $con = Database::connect();
+        $stmt = $con->prepare("SELECT * FROM `pedido` WHERE id_usuario = ? ORDER BY fecha DESC"); // el ? es un placeholder que pasamos con bind_param
+        $stmt-> bind_param('i', $id_usuario);
+        $stmt->execute();
+        $results = $stmt->get_result();
+        $listaPedidos = [];
+        while ($pedido = $results->fetch_object('Pedido')) {
+            $listaPedidos[] = $pedido;
+        }
+
+        $con->close();
+        return $listaPedidos;
+    }
+
+    public static function crearPedido($id_usuario, $importe_total) { //Pasamos los atributos que pueden cambiar
+        $con = Database::connect();
+        $fecha = date('Y-m-d H:i:s');
+        $estado = 'pendiente';
+        $stmt = $con->prepare("INSERT INTO pedido (fecha, estado, importe_total, id_usuario) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('ssdi', $fecha, $estado, $importe_total, $id_usuario);
+        $stmt->execute();
+        $id_pedido = $con->insert_id;
+        $con->close();
+        return $id_pedido;
+    }
+
+    public static function actualizarEstado(){
+        $con = Database::connect();
+        $stmt = $con->prepare("UPDATE `pedido` SET estado = ? WHERE id_pedido = ?");
+        $stmt->bind_param('si', $estado, $id_pedido);
+        $results = $stmt->execute();
+        $con->close();
+        return $results;
     }
 
 }

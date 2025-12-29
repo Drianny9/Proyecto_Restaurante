@@ -120,11 +120,11 @@ function eliminarProducto(id) {
         body: JSON.stringify({ id: id }) /*enviamos el ID del producto. 
                                           stringify convierte el JSON en string para que PHP lo pueda leer*/
     })
-    .then(response => response.json())
+    .then(response => response.json()) //Convertir respuesta a JSON
     .then(data => {
         if (data.estado === 'Exito') {
             alert(data.mensaje);
-            cargarProductos();
+            cargarProductos(); //Actualizamos la tabla productos
         } else {
             alert('Error: ' + data.mensaje);
         }

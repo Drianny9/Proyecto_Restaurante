@@ -23,12 +23,10 @@
                 <h3 class="categoria-titulo">CATEGORIAS</h3>
                 
                 <?php if (!empty($categorias)): ?>
-                    <?php foreach ($categorias as $categoria): ?>
+                    <?php foreach ($categorias as $categoria): //Los : equivalen a {} , pero hay que poner endforeach al final en lugar de }?>
                         <!-- Cada categoria es un checkbox para filtrar -->
                         <label class="filtro-item">
-                            <input type="checkbox" 
-                                   class="filtro-checkbox" 
-                                   data-categoria="<?= $categoria->getIdCategoria() ?>">
+                            <input type="checkbox" class="filtro-checkbox" data-categoria="<?= $categoria->getIdCategoria() ?>">
                             <!-- Aqui puedes añadir un icono de categoria si quieres -->
                             <span class="filtro-nombre"><?= $categoria->getNombre() ?></span>
                         </label>
@@ -37,7 +35,7 @@
             </div>
         </aside>
 
-        <!-- Grid de productos -->
+        <!-- Mostramos tarjetas de productos -->
         <div class="productos-grid">
             <?php if (!empty($productos)): ?>
                 <?php foreach ($productos as $producto): ?>
@@ -47,9 +45,7 @@
                         
                         <!-- Imagen del producto con boton de favorito -->
                         <div class="producto-imagen-container">
-                            <img src="assets/images/productos/<?= $producto->getImagen() ?>" 
-                                 alt="<?= $producto->getNombre() ?>" 
-                                 class="producto-imagen">
+                            <img src="assets/images/productos/<?= $producto->getImagen() ?>" alt="<?= $producto->getNombre() ?>" class="producto-imagen">
                             <!-- Boton de favorito (corazon) -->
                             <button class="btn-favorito">
                                 <span class="icono-corazon">♡</span>
@@ -69,7 +65,7 @@
                                 <span class="precio-valor"><?= number_format($producto->getPrecio_base(), 2) ?> €</span>
                             </p>
 
-                            <!-- Calorias (puedes añadir este campo a tu modelo si quieres) -->
+                            <!-- Calorias de productos -->
                             <p class="producto-calorias">
                                 <span class="calorias-icono">ⓘ</span>
                                 <span>Calorias: XXX Kcal</span>
