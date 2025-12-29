@@ -20,3 +20,8 @@ Ejemplo:  localstorage.setItem("usuario" , "Drianny"); //Esto lo haremos en Java
 localstorage.getItem()
 
 removeItem() //para eliminar
+
+
+JSON.stringify(): De Objeto a Texto (Para ENVIAR datos).
+
+JSON.parse(): De Texto a Objeto (Para RECIBIR datos).
