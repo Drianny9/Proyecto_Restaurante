@@ -72,7 +72,7 @@ class UsuarioDAO{
         }
 
         //Hasheamos la contraseña
-        $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT);
+        $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT); //PASSWORD_DEFAULT es para que php use el algoritmo más fuerte que tiene instalado
 
         //Insertamos nuevo usuario
         $stmt = $con->prepare("INSERT INTO usuario(nombre, email, contraseña, direccion, telefono, rol) VALUES (?, ?, ?, ?, ?, ?)");

@@ -1,201 +1,226 @@
-/* Variables de color para el nav */
+/* ===== CUPRA EATS NAVBAR - Diseño Exacto ===== */
+
 :root {
-    --cupra-dark: #1a1d23;
-    --cupra-copper: #b87333;
-    --cupra-light: #ffffff;
+    --cupra-copper: #A66D56;
+    --cupra-dark: #0A0A0A;
+    --cupra-white: #FFFFFF;
 }
 
-/* ===== NAVBAR FIJA ===== */
+/* ===== NAVBAR BASE ===== */
 .navbar {
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-    padding: 1rem 0;
+    padding: 1.25rem 0;
+    background: transparent !important;
     z-index: 1000;
 }
 
-.navbar.scrolled {
-    background-color: rgba(26, 29, 35, 0.95);
+.navbar-solid {
+    background: rgba(10, 10, 10, 0.95) !important;
     backdrop-filter: blur(10px);
 }
 
-.navbar .navbar-brand {
-    /* Reservar espacio fijo para el logo para que no empuje el resto */
-    flex: 0 0 280px;
+/* ===== LOGO CUPRA EATS ===== */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 55px;
+    width: auto;
+}
+
+/* ===== CONTENEDOR DERECHO ===== */
+.navbar-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-buttons {
     display: flex;
     align-items: center;
 }
 
-.navbar .logo {
-    height: 200px;
-    width: auto;
-    transition: height 0.2s ease;
-}
-
-.navbar-nav .nav-link {
-    color: var(--cupra-light) !important;
-    font-weight: 500;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover {
-    color: var(--cupra-copper) !important;
-}
-
-.navbar .btn-outline-light {
-    border: 2px solid var(--cupra-light);
-    color: var(--cupra-light);
-    border-radius: 5px;
-    padding: 0.5rem 1.5rem;
+/* ===== BOTÓN OUTLINE (ENCUÉNTRANOS) ===== */
+.btn-nav-outline {
+    padding: 0.65rem 1.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 1px;
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 1.5px;
+    color: var(--cupra-white);
+    background: transparent;
+    border: 1px solid var(--cupra-white);
+    border-radius: 0;
+    text-decoration: none;
     transition: all 0.3s ease;
 }
 
-.navbar .btn-outline-light:hover {
-    background-color: var(--cupra-light);
+.btn-nav-outline:hover {
+    background: var(--cupra-white);
     color: var(--cupra-dark);
 }
 
-.navbar .btn-light {
-    background-color: var(--cupra-light);
-    color: var(--cupra-dark) !important;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem 1.5rem;
+/* ===== BOTÓN FILLED (CONFIGURADOR) ===== */
+.btn-nav-filled {
+    padding: 0.65rem 1.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 1px;
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 1.5px;
+    color: var(--cupra-dark);
+    background: var(--cupra-white);
+    border: 1px solid var(--cupra-white);
+    border-radius: 0;
+    text-decoration: none;
     transition: all 0.3s ease;
 }
 
-.navbar .btn-light:hover {
-    background-color: var(--cupra-copper);
-    color: var(--cupra-light);
+.btn-nav-filled:hover {
+    background: transparent;
+    color: var(--cupra-white);
 }
 
-/* Iconos circulares */
+/* ===== LINK TEXTO (COOKIES) ===== */
+.nav-link-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 1.5px;
+    color: var(--cupra-white);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.nav-link-text:hover {
+    color: var(--cupra-white);
+    opacity: 0.7;
+}
+
+/* ===== ICONOS CIRCULARES ===== */
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.nav-icon-link {
+    text-decoration: none;
+}
+
 .icon-circle {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--cupra-white);
+    background: transparent;
     transition: all 0.3s ease;
 }
 
 .icon-circle:hover {
-    background-color: var(--cupra-copper);
-    border-color: var(--cupra-copper);
+    border-color: var(--cupra-white);
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* Hamburger menu */
-.hamburger {
+.icon-circle svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===== MENÚ HAMBURGUESA ===== */
+.nav-hamburger {
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
     cursor: pointer;
+    padding: 0;
+    margin-left: 0.5rem;
 }
 
-.hamburger span {
-    display: block;
-    width: 25px;
-    height: 2px;
-    background-color: var(--cupra-light);
+.hamburger-line {
+    width: 24px;
+    height: 1.5px;
+    background-color: var(--cupra-white);
     transition: all 0.3s ease;
+}
+
+.nav-hamburger:hover .hamburger-line {
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 /* ===== OFFCANVAS MENU ===== */
 .offcanvas {
-    background-color: var(--cupra-dark);
+    background: var(--cupra-dark) !important;
 }
 
-.offcanvas-title {
-    color: var(--cupra-light);
-    font-weight: 600;
-    letter-spacing: 2px;
-}
-
-.offcanvas-body .nav-link {
-    color: var(--cupra-light);
-    font-size: 1.2rem;
-    font-weight: 500;
+.offcanvas .nav-link {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1rem;
     letter-spacing: 1px;
-    padding: 1rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
 }
 
-.offcanvas-body .nav-link:hover {
-    color: var(--cupra-copper);
-    padding-left: 1rem;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 991px) {
-    .navbar-nav {
-        padding: 1rem 0;
-    }
-    
-    .navbar-nav .nav-item {
-        margin-bottom: 0.5rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .navbar .logo {
-        height: 44px;
-    }
-    .navbar .navbar-brand {
-        flex: 0 0 auto; /* permitir tamaño natural en móvil */
-    }
-    
-    /* En movil el espaciador es mas pequeño */
-    .nav-spacer {
-        height: 80px;
-    }
-}
-
-/* Asegurar que la parte de navegación ocupe el espacio restante */
-.navbar .navbar-collapse {
-    flex: 1 1 auto;
-    justify-content: flex-end;
+.offcanvas .nav-link:hover {
+    color: var(--cupra-copper) !important;
 }
 
 /* ===== ESPACIADOR PARA EL NAV FIJO ===== */
 .nav-spacer {
-    height: 220px;
+    height: 80px;
 }
 
-/* ===== CARRITO EN NAVBAR ===== */
-.nav-carrito {
-    display: flex;
-    align-items: center;
-    color: var(--cupra-light);
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991.98px) {
+    .nav-buttons {
+        display: none !important;
+    }
+    
+    .navbar-brand {
+        transform: scale(0.9);
+    }
 }
 
-.nav-carrito:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--cupra-copper);
-}
-
-/* Contador del carrito (badge) */
-.contador-badge {
-    background-color: #dc3545;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 8px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-left: 8px;
-    display: none; /* Oculto por defecto, se muestra con JS */
+@media (max-width: 575.98px) {
+    .icon-circle {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .icon-circle svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .cupra-logo-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .brand-cupra,
+    .brand-eats {
+        font-size: 0.95rem;
+        letter-spacing: 3px;
+    }
+    
+    .nav-hamburger {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .hamburger-line {
+        width: 20px;
+    }
 }
 
 /* ===== NOTIFICACIÓN DE PRODUCTO AÑADIDO ===== */

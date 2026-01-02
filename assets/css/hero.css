@@ -1,0 +1,460 @@
+/* ========================================
+   CUPRA HERO SECTION - Design System
+   ======================================== */
+
+:root {
+    /* Colores CUPRA */
+    --cupra-white: #FFFFFF;
+    --cupra-copper: #A66D56;
+    --cupra-dark: #111111;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--cupra-dark);
+    margin: 0;
+    padding: 0;
+}
+
+.font-exo {
+    font-family: 'Exo 2', sans-serif;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    background: url('../images/home/Fondo home.png') no-repeat center center/cover;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sombra para oscurecer la imagen y que se lea el texto */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Todo el contenido debe estar por encima de la sombra */
+.hero-section > .navbar,
+.hero-section > .container,
+.hero-section > .bottom-carousel-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================================
+   HERO CONTENT
+   ======================================== */
+
+.hero-section > .container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    padding-left: 4%;
+    padding-right: 0;
+    margin: 0;
+}
+
+.hero-content {
+    padding-left: 0;
+}
+
+/* ========================================
+   TEXTOS HERO
+   ======================================== */
+
+.ls-2 {
+    letter-spacing: 2px;
+}
+
+.hero-section .display-1 {
+    font-size: 5rem;
+    letter-spacing: -2px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+/* Botones del Hero */
+.hero-section .btn {
+    border-radius: 4px !important;
+}
+
+/* Botón outline del hero section */
+.hero-section .btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--cupra-white);
+    border-color: var(--cupra-white);
+}
+
+.hero-section .btn-light:hover {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: var(--cupra-dark);
+}
+
+/* Todos los botones del proyecto tienen border-radius */
+.btn {
+    border-radius: 4px !important;
+}
+
+/* ========================================
+   NAVBAR ICONOS CIRCULARES
+   ======================================== */
+
+.hero-section .nav-link:has(.bi-cart3),
+.hero-section .nav-link:has(.bi-person) {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.hero-section .nav-link:has(.bi-cart3):hover,
+.hero-section .nav-link:has(.bi-person):hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   CARRUSEL INFERIOR
+   ======================================== */
+
+.bottom-carousel-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+    padding-top: 40px;
+    z-index: 5;
+}
+
+.carousel-track {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.carousel-card {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+/* Estilo "Cristal" para las cajitas de los productos */
+.glass-box {
+    width: 200px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    padding: 1rem;
+}
+
+.glass-box img {
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.glass-box small {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.carousel-card:hover .glass-box {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--cupra-copper);
+    cursor: pointer;
+}
+
+/* Ocultar barra de scroll pero permitir scroll */
+.carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-track {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.letter-spacing-1 {
+    letter-spacing: 1px;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .hero-section .display-1 {
+        font-size: 3.5rem;
+    }
+    
+    .glass-box {
+        width: 110px;
+        height: 80px;
+    }
+}
+
+/* ========================================
+   NAV SPACER (para otras páginas)
+   ======================================== */
+
+.nav-spacer {
+    height: 80px;
+}
+
+/* ========================================
+   UTILIDADES DE COLOR
+   ======================================== */
+
+.text-copper {
+    color: var(--cupra-copper);
+}
+
+.bg-cupra-dark {
+    background-color: var(--cupra-dark);
+}
+
+/* ========================================
+   SECCIÓN IMAGEN + BOTONES
+   ======================================== */
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+/* Sombra degradada para la sección 2 */
+.overlay-gradient {
+    background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+}
+
+/* ========================================
+   SECCIÓN MESAS DISPONIBLES
+   ======================================== */
+
+.reservation-select {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--cupra-white);
+    padding: 0.75rem 1rem;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: none;
+}
+
+.reservation-select:focus {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.5);
+    color: var(--cupra-white);
+    box-shadow: none;
+}
+
+.reservation-select option {
+    background-color: rgba(40, 40, 40, 0.95);
+    color: var(--cupra-white);
+}
+
+/* Eliminar hover de los selectores */
+.reservation-select:hover {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   SERVICIOS CUPRA - CARRUSEL 3D
+   ======================================== */
+
+.servicios-cupra {
+    padding: 5rem 0;
+    overflow: hidden;
+}
+
+.carousel-3d-container {
+    position: relative;
+    padding: 4rem 0;
+}
+
+.carousel-3d-wrapper {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-card-3d {
+    position: absolute;
+    width: 470px;
+    height: 470px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 2px solid white;
+}
+
+.carousel-card-3d img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #F9AE8F 0%, #BE7759 49%, #884529 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-overlay i {
+    color: white;
+    font-size: 24px;
+}
+
+/* Estado: Centro (activo) */
+.carousel-card-3d.state-center {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 3;
+}
+
+.carousel-card-3d.state-center .card-overlay {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+/* Estado: Derecha */
+.carousel-card-3d.state-right {
+    transform: translateX(400px) scale(0.8);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.carousel-card-3d.state-right:hover {
+    opacity: 0.85;
+}
+
+.carousel-card-3d.state-right:hover .card-overlay {
+    opacity: 1;
+}
+
+/* Estado: Izquierda */
+.carousel-card-3d.state-left {
+    transform: translateX(-400px) scale(0.8);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.carousel-card-3d.state-left:hover {
+    opacity: 0.85;
+}
+
+.carousel-card-3d.state-left:hover .card-overlay {
+    opacity: 1;
+}
+
+/* Indicadores */
+.carousel-indicators-3d {
+    padding-bottom: 2rem;
+}
+
+.indicator {
+    width: 50px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: var(--cupra-copper);
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carousel-card-3d {
+        width: 300px;
+        height: 250px;
+    }
+    
+    .carousel-card-3d.state-right {
+        transform: translateX(250px) scale(0.7);
+    }
+    
+    .carousel-card-3d.state-left {
+        transform: translateX(-250px) scale(0.7);
+    }
+}
+
+/* Botones Cupra */
+.btn-cupra-solid {
+    background-color: var(--cupra-white);
+    color: var(--cupra-dark);
+    border: 2px solid var(--cupra-white);
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-cupra-solid:hover {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: var(--cupra-dark);
+    border-color: var(--cupra-white);
+}
+
+.btn-cupra-outline {
+    background-color: transparent;
+    color: var(--cupra-white);
+    border: 2px solid var(--cupra-white);
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-cupra-outline:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--cupra-white);
+    color: var(--cupra-white);
+}
