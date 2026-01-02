@@ -6,10 +6,7 @@ class Log{
     private $accion;
     private $fecha_hora;
 
-
-    public function __construct(){
-
-    }
+    public function __construct() {}
 
     //GETTERS
     public function getId_log(){

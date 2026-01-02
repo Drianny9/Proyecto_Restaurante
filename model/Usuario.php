@@ -10,9 +10,7 @@ class Usuario{
     private $telefono;
     private $rol;
 
-    public function __construct(){
-        
-    }
+    public function __construct() {}
 
     //GETTERS
     public function getId_usuario(){

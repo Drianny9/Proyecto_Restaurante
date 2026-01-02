@@ -47,6 +47,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="?controller=Carrito&action=ver" class="nav-carrito">
+                        🛒 Carrito
+                        <span id="contador-carrito" class="contador-badge">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <button class="btn btn-link nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas">
                         <div class="hamburger">
                             <span></span>

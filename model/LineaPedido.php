@@ -9,6 +9,8 @@ class LineaPedido{
     private $id_pedido;
     private $id_oferta;
 
+    public function __construct() {}
+
     //GETTERS
     public function getId_linea(){
         return $this->id_linea;

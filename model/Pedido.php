@@ -1,12 +1,15 @@
 <?php
 
 class Pedido{
+
     //Atributos de la clase
     private $id_pedido;
     private $fecha;
     private $estado;
     private $importe_total;
     private $id_usuario;
+
+    public function __construct() {}
 
     //GETTERS
     public function getId_pedido(){

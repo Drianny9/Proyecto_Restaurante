@@ -9,6 +9,7 @@ include_once 'controller/LogController.php';
 include_once 'controller/RegistroController.php';
 include_once 'controller/ProductoController.php';
 include_once 'controller/AdminController.php';
+include_once 'controller/CarritoController.php';
 
 // Valores por defecto
 $defaultController = 'Home';

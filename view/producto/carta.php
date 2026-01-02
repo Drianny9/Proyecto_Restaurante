@@ -71,11 +71,16 @@
                                 <span>Calorias: XXX Kcal</span>
                             </p>
 
-                            <!-- Checkbox para añadir al carrito -->
-                            <label class="añadir-carrito">
-                                <input type="checkbox" class="carrito-checkbox">
-                                <span>Añadir al carrito</span>
-                            </label>
+                            <!-- Boton añadir al carrito con localStorage -->
+                            <button class="btn-añadir-carrito" 
+                                    onclick="añadirAlCarrito(
+                                        <?= $producto->getId_producto() ?>,
+                                        '<?= addslashes($producto->getNombre()) ?>',
+                                        <?= $producto->getPrecio_base() ?>,
+                                        '<?= $producto->getImagen() ?>'
+                                    )">
+                                🛒 Añadir al carrito
+                            </button>
 
                             <!-- Boton ver detalles -->
                             <a href="?controller=Producto&action=verDetalle&id=<?= $producto->getId_producto() ?>" 

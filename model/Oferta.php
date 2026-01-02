@@ -1,6 +1,7 @@
 <?php
 
 class Oferta{
+
     //Atributos de la clase
     private $id_oferta;
     private $nombre;
@@ -9,6 +10,8 @@ class Oferta{
     private $fecha_inicio;
     private $fecha_fin;
     private $activa;
+
+    public function __construct() {}
 
     //GETTERS
     public function getId_oferta(){

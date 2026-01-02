@@ -5,6 +5,8 @@ class Categoria{
     private $id_categoria;
     private $nombre;
 
+    public function __construct() {}
+
     //GETTERS
     public function getIdCategoria(){
         return $this->id_categoria;
