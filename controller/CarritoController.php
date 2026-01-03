@@ -11,6 +11,12 @@ class CarritoController{
         include_once 'view/main.php';
     }
     
+    //Mostrar página de checkout/pago
+    public function checkout(){
+        $view = 'view/carrito/checkout.php';
+        include_once 'view/main.php';
+    }
+    
     //Mostrar página de confirmación
     public function confirmacion(){
         $id_pedido = isset($_GET['id']) ? intval($_GET['id']) : 0;

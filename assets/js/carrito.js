@@ -117,7 +117,9 @@ function mostrarNotificacion(mensaje) {
 
 function renderizarCarrito() {
     const carrito = obtenerCarrito();
-    const contenedor = document.getElementById('contenido-carrito');
+    const contenedor = document.getElementById('lista-productos-carrito');
+    const subtotalElement = document.getElementById('subtotal-carrito');
+    const ivaElement = document.getElementById('iva-carrito');
     const totalElement = document.getElementById('total-carrito');
     
     if (!contenedor) return;
@@ -125,75 +127,87 @@ function renderizarCarrito() {
     if (carrito.length === 0) {
         contenedor.innerHTML = `
             <div class="carrito-vacio">
-                <p>Tu carrito está vacío</p>
-                <a href="?controller=Producto&action=verCarta" class="btn-ir-carta">Ver Carta</a>
+                <div class="carrito-vacio-icono">
+                    <i class="bi bi-cart-x"></i>
+                </div>
+                <h2>Tu carrito está vacío</h2>
+                <p>Explora nuestra carta y añade productos deliciosos</p>
+                <a href="?controller=Producto&action=verCarta" class="btn btn-cupra-solid px-5 py-3">
+                    VER CARTA
+                </a>
             </div>
         `;
-        if (totalElement) totalElement.textContent = '0.00 €';
+        if (subtotalElement) subtotalElement.textContent = '0,00 €';
+        if (ivaElement) ivaElement.textContent = '0,00 €';
+        if (totalElement) totalElement.textContent = '0,00 €';
         return;
     }
     
-    let html = `
-        <table class="carrito-tabla">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+    let html = '';
     
     carrito.forEach(item => {
         const subtotal = item.precio * item.cantidad;
+        const itemId = item.id_producto || item.id;
         html += `
-            <tr data-id="${item.id_producto}">
-                <td class="producto-info">
-                    <img src="assets/images/productos/${item.imagen}" alt="${item.nombre}" class="carrito-imagen">
-                    <span>${item.nombre}</span>
-                </td>
-                <td>${item.precio.toFixed(2)} €</td>
-                <td>
-                    <div class="control-cantidad">
-                        <button class="btn-cantidad" onclick="cambiarCantidad(${item.id_producto}, -1)">-</button>
-                        <span class="cantidad-valor">${item.cantidad}</span>
-                        <button class="btn-cantidad" onclick="cambiarCantidad(${item.id_producto}, 1)">+</button>
+            <div class="producto-card" data-id="${itemId}">
+                <div class="row align-items-center g-3">
+                    <!-- Imagen -->
+                    <div class="col-auto">
+                        <img src="assets/images/carta/${item.imagen}" alt="${item.nombre}" class="producto-imagen">
                     </div>
-                </td>
-                <td class="subtotal">${subtotal.toFixed(2)} €</td>
-                <td>
-                    <button class="btn-eliminar" onclick="eliminarProducto(${item.id_producto})">
-                        Eliminar
-                    </button>
-                </td>
-            </tr>
+                    
+                    <!-- Info del producto -->
+                    <div class="col">
+                        <h4 class="producto-nombre">${item.nombre}</h4>
+                        <p class="producto-precio mb-0">${item.precio.toFixed(2)} € / unidad</p>
+                    </div>
+                    
+                    <!-- Control de cantidad -->
+                    <div class="col-auto">
+                        <div class="control-cantidad">
+                            <button class="btn-cantidad" onclick="cambiarCantidad('${itemId}', -1)">
+                                <i class="bi bi-dash"></i>
+                            </button>
+                            <span class="cantidad-valor">${item.cantidad}</span>
+                            <button class="btn-cantidad" onclick="cambiarCantidad('${itemId}', 1)">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Subtotal -->
+                    <div class="col-auto text-end" style="min-width: 100px;">
+                        <span class="producto-subtotal">${subtotal.toFixed(2)} €</span>
+                    </div>
+                    
+                    <!-- Eliminar -->
+                    <div class="col-auto">
+                        <button class="btn-eliminar-producto" onclick="eliminarProducto('${itemId}')" title="Eliminar">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         `;
     });
     
-    html += `
-            </tbody>
-        </table>
-        <div class="carrito-acciones">
-            <button class="btn-vaciar" onclick="confirmarVaciar()">Vaciar Carrito</button>
-            <a href="?controller=Producto&action=verCarta" class="btn-seguir">Seguir Comprando</a>
-            <button class="btn-procesar" onclick="finalizarPedido()">Finalizar Pedido</button>
-        </div>
-    `;
-    
     contenedor.innerHTML = html;
     
-    if (totalElement) {
-        totalElement.textContent = calcularTotal().toFixed(2) + ' €';
-    }
+    // Calcular totales
+    const subtotal = calcularTotal();
+    const iva = subtotal * 0.10; // 10% IVA
+    const total = subtotal + iva;
+    
+    if (subtotalElement) subtotalElement.textContent = subtotal.toFixed(2).replace('.', ',') + ' €';
+    if (ivaElement) ivaElement.textContent = iva.toFixed(2).replace('.', ',') + ' €';
+    if (totalElement) totalElement.textContent = total.toFixed(2).replace('.', ',') + ' €';
 }
 
 // Cambiar cantidad de un producto
 function cambiarCantidad(id_producto, cambio) {
     const carrito = obtenerCarrito();
-    const item = carrito.find(p => p.id_producto === id_producto);
+    // Buscar por id_producto o id (compatibilidad)
+    const item = carrito.find(p => (p.id_producto == id_producto) || (p.id == id_producto));
     
     if (item) {
         const nuevaCantidad = item.cantidad + cambio;
@@ -218,7 +232,8 @@ function guardarCarritoSinAlerta(carrito) {
 function eliminarProducto(id_producto) {
     if (confirm('¿Eliminar este producto del carrito?')) {
         let carrito = obtenerCarrito();
-        carrito = carrito.filter(p => p.id_producto !== id_producto);
+        // Filtrar por id_producto o id (compatibilidad)
+        carrito = carrito.filter(p => (p.id_producto != id_producto) && (p.id != id_producto));
         guardarCarritoSinAlerta(carrito);
         renderizarCarrito();
     }
@@ -234,6 +249,18 @@ function confirmarVaciar() {
 }
 
 // ============ FINALIZAR PEDIDO ============
+
+function tramitarPedido() {
+    const carrito = obtenerCarrito();
+    
+    if (carrito.length === 0) {
+        alert('El carrito está vacío');
+        return;
+    }
+    
+    // Redirigir a checkout
+    window.location.href = '?controller=Carrito&action=checkout';
+}
 
 function finalizarPedido() {
     const carrito = obtenerCarrito();
@@ -276,7 +303,7 @@ function finalizarPedido() {
 document.addEventListener('DOMContentLoaded', function() {
     actualizarContadorCarrito();
     
-    if (document.getElementById('contenido-carrito')) {
+    if (document.getElementById('lista-productos-carrito')) {
         renderizarCarrito();
     }
 });

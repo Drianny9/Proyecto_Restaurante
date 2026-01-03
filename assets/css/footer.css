@@ -1,0 +1,139 @@
+/* ========================================
+   FOOTER - CUPRA EATS
+   ======================================== */
+
+.footer-cupra {
+    background-color: #111111;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Sección Superior */
+.footer-top {
+    padding: 60px 0 40px;
+}
+
+.footer-title {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 300;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #A66D56;
+}
+
+/* Línea divisoria */
+.footer-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    margin: 0 auto;
+    max-width: 90%;
+}
+
+/* Sección Inferior */
+.footer-bottom {
+    padding: 40px 0 50px;
+    text-align: center;
+}
+
+/* Iconos de redes sociales */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.social-icon {
+    color: #ffffff;
+    font-size: 32px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #A66D56;
+    transform: scale(1.1);
+}
+
+/* Links legales */
+.legal-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+.legal-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 300;
+    padding: 0 15px;
+    transition: color 0.3s ease;
+}
+
+.legal-links a:hover {
+    color: #A66D56;
+}
+
+.legal-links .separator {
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 300;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .footer-top {
+        padding: 40px 0 20px;
+    }
+    
+    .footer-title {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    .social-icons {
+        gap: 25px;
+    }
+    
+    .social-icon {
+        font-size: 28px;
+    }
+    
+    .legal-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .legal-links .separator {
+        display: none;
+    }
+    
+    .legal-links a {
+        padding: 5px 0;
+    }
+}

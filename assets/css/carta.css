@@ -1,90 +1,179 @@
-/* 
- * Estilos para la carta de productos
- * Estructura: filtros a la izquierda, grid de productos a la derecha
- */
+/* ========================================
+   CARTA DE PRODUCTOS - CUPRA EATS
+   ======================================== */
 
 /* Contenedor principal de la carta */
 .carta-container {
-    padding: 20px;
-    padding-top: 300px;
+    padding: 40px 60px;
+    padding-top: 120px;
     min-height: 100vh;
+    background-color: var(--cupra-bg, #15181E);
 }
 
 /* Cabecera con titulo y descripcion */
 .carta-header {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    padding-left: 20px;
 }
 
 .carta-header h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    font-style: italic;
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
 }
 
 .carta-header p {
-    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 /* Contenedor flex: filtros + productos */
 .carta-content {
     display: flex;
-    gap: 30px;
+    gap: 40px;
 }
 
 /* =====================
    PANEL DE FILTROS
    ===================== */
 .filtros-panel {
-    width: 250px;
-    flex-shrink: 0; /* No se encoge */
-    padding: 20px;
-    border-radius: 10px;
-    height: fit-content; /* Solo ocupa lo necesario */
-    position: sticky; /* Se queda fijo al hacer scroll */
+    width: 280px;
+    flex-shrink: 0;
+    padding: 30px;
+    background-color: #37393D;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    height: fit-content;
+    position: sticky;
     top: 100px;
 }
 
 .filtros-panel h2 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #ffffff;
+    margin-bottom: 4px;
 }
 
 .filtros-subtitulo {
-    font-size: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+}
+
+.filtros-separador {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
     margin-bottom: 20px;
 }
 
-.categoria-titulo {
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+.categoria-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
     cursor: pointer;
 }
 
-/* Cada item de filtro (checkbox + nombre) */
+.categoria-titulo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.categoria-arrow {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.categoria-arrow.collapsed {
+    transform: rotate(180deg);
+}
+
+/* Cada item de filtro (checkbox + icono + nombre) */
 .filtro-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 16px;
     cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.filtro-item:hover {
+    opacity: 0.8;
 }
 
 .filtro-checkbox {
     width: 18px;
     height: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background: transparent;
     cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.filtro-checkbox:checked {
+    background-color: var(--cupra-copper, #A66D56);
+    border-color: var(--cupra-copper, #A66D56);
+}
+
+.filtro-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+}
+
+.filtro-icono {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #292B2F;
+}
+
+.filtro-icono img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .filtro-nombre {
-    font-size: 0.9rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #ffffff;
 }
 
 /* =====================
    GRID DE PRODUCTOS
    ===================== */
 .productos-grid {
-    flex: 1; /* Ocupa el espacio restante */
+    flex: 1;
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas por defecto */
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 }
 
@@ -92,10 +181,18 @@
    TARJETA DE PRODUCTO
    ===================== */
 .producto-card {
-    border-radius: 10px;
+    background-color: #292B2F;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.producto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* Contenedor de la imagen */
@@ -109,130 +206,211 @@
 .producto-imagen {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* La imagen cubre todo el espacio sin deformarse */
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.producto-card:hover .producto-imagen {
+    transform: scale(1.05);
 }
 
 /* Boton de favorito (corazon) */
 .btn-favorito {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 22px;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 2;
 }
 
-/* Etiqueta de categoria (NUEVO, OFERTA, etc) */
+.btn-favorito:hover {
+    color: #ff6b6b;
+    transform: scale(1.1);
+}
+
+.btn-favorito.active {
+    color: #ff6b6b;
+}
+
+/* Etiqueta de categoria */
 .producto-etiqueta {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 4px 10px;
+    bottom: 15px;
+    right: 15px;
+    padding: 4px 12px;
+    background-color: rgba(50, 50, 50, 0.9);
     border-radius: 4px;
-    font-size: 0.7rem;
-    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 /* Informacion del producto */
 .producto-info {
-    padding: 15px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    flex: 1;
+}
+
+.producto-nombre-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
 }
 
 .producto-nombre {
-    font-size: 1.1rem;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
     margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .producto-descripcion {
-    font-size: 0.85rem;
-    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.producto-separador {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.08);
+    margin: 12px 0;
 }
 
 .producto-precio {
-    margin: 5px 0;
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
 }
 
 .precio-label {
-    font-size: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .precio-valor {
-    font-weight: bold;
-    font-size: 1rem;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
 }
 
 .producto-calorias {
-    font-size: 0.8rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    margin: 0 0 15px 0;
+}
+
+.calorias-icono {
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
 }
 
 /* Checkbox añadir al carrito */
-.añadir-carrito {
+.añadir-carrito-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    margin-bottom: 15px;
     cursor: pointer;
-    font-size: 0.85rem;
 }
 
 .carrito-checkbox {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
-/* Boton ver detalles */
+.carrito-checkbox:checked {
+    background-color: var(--cupra-copper, #A66D56);
+    border-color: var(--cupra-copper, #A66D56);
+}
+
+.carrito-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+}
+
+.carrito-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Boton ver detalles - ESTILO PRINCIPAL */
 .btn-ver-detalles {
     display: block;
     text-align: center;
-    padding: 10px;
-    border: 1px solid currentColor;
-    border-radius: 5px;
+    padding: 12px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
     text-decoration: none;
-    font-size: 0.85rem;
-    margin-top: 10px;
-    transition: all 0.3s;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin-top: auto;
 }
 
 .btn-ver-detalles:hover {
-    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
 }
 
 /* Mensaje cuando no hay productos */
 .no-productos {
-    grid-column: 1 / -1; /* Ocupa todas las columnas */
+    grid-column: 1 / -1;
     text-align: center;
-    padding: 50px;
-}
-
-/* =====================
-   RESPONSIVE
-   ===================== */
-
-/* Tablets y pantallas medianas */
-@media (max-width: 992px) {
-    .productos-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Moviles */
-@media (max-width: 768px) {
-    .carta-content {
-        flex-direction: column; /* Filtros arriba, productos abajo */
-    }
-
-    .filtros-panel {
-        width: 100%;
-        position: static; /* Ya no es sticky en movil */
-    }
-
-    .productos-grid {
-        grid-template-columns: 1fr; /* 1 columna en movil */
-    }
+    padding: 80px 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.5);
 }

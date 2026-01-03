@@ -7,11 +7,12 @@
     --cupra-white: #FFFFFF;
     --cupra-copper: #A66D56;
     --cupra-dark: #111111;
+    --cupra-bg: #15181E;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: var(--cupra-dark);
+    background-color: var(--cupra-bg);
     margin: 0;
     padding: 0;
 }

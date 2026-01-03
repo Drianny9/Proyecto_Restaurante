@@ -13,11 +13,6 @@
     z-index: 1000;
 }
 
-.navbar-solid {
-    background: rgba(10, 10, 10, 0.95) !important;
-    backdrop-filter: blur(10px);
-}
-
 /* ===== LOGO CUPRA EATS ===== */
 .navbar-brand {
     display: flex;

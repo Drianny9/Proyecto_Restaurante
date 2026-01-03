@@ -18,24 +18,26 @@
     
     <!-- CSS del Hero Section -->
     <link rel="stylesheet" href="assets/css/hero.css">
+    
+    <!-- CSS del Footer -->
+    <link rel="stylesheet" href="assets/css/footer.css">
 </head>
 <body>
-    <!-- Header con el nav (transparente en home, fijo en otras páginas) -->
-    <?php if (!isset($_GET['controller']) || $_GET['controller'] == 'Home'): ?>
-        <!-- En home el nav va dentro del hero -->
-    <?php else: ?>
-        <!-- En otras páginas el nav va aquí arriba -->
-        <header>
-            <?php include_once 'view/includes/nav.php' ?>
-        </header>
-        <!-- Espaciador para compensar el nav fijo -->
-        <div class="nav-spacer"></div>
-    <?php endif; ?>
+    <!-- Header con el nav (transparente en todas las páginas) -->
+    <header>
+        <?php include_once 'view/includes/nav.php' ?>
+    </header>
     
     <!-- Contenido principal -->
     <main>
         <?php include_once $view; ?>
     </main>
+
+    <!-- Footer -->
+    <footer>
+        <?php include_once 'view/includes/footer.php'; ?>
+    </footer>
+    
     
     <!-- Script global del carrito (localStorage) -->
     <script src="assets/js/carrito.js"></script>
