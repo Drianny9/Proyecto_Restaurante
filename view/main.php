@@ -24,9 +24,15 @@
 </head>
 <body>
     <!-- Header con el nav (transparente en todas las páginas) -->
+    <?php 
+    // No mostrar navbar ni footer en el panel admin
+    $esAdmin = strpos($view, 'admin/') !== false;
+    if (!$esAdmin): 
+    ?>
     <header>
         <?php include_once 'view/includes/nav.php' ?>
     </header>
+    <?php endif; ?>
     
     <!-- Contenido principal -->
     <main>
@@ -34,9 +40,11 @@
     </main>
 
     <!-- Footer -->
+    <?php if (!$esAdmin): ?>
     <footer>
         <?php include_once 'view/includes/footer.php'; ?>
     </footer>
+    <?php endif; ?>
     
     
     <!-- Script global del carrito (localStorage) -->

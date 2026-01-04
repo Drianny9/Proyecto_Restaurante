@@ -59,4 +59,24 @@ class LineaPedidoDAO{
         return $listaLineas;
     }
 
+    // Actualizar línea de pedido
+    public static function actualizarLineaPedido($id_linea, $id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta) {
+        $con = Database::connect();
+        $stmt = $con->prepare("UPDATE `linea_pedido` SET id_pedido = ?, id_producto = ?, precio_unidad = ?, cantidad = ?, id_oferta = ? WHERE id_linea = ?");
+        $stmt->bind_param('iidiii', $id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta, $id_linea);
+        $results = $stmt->execute();
+        $con->close();
+        return $results;
+    }
+
+    // Eliminar línea de pedido
+    public static function eliminarLineaPedido($id_linea) {
+        $con = Database::connect();
+        $stmt = $con->prepare("DELETE FROM `linea_pedido` WHERE id_linea = ?");
+        $stmt->bind_param('i', $id_linea);
+        $results = $stmt->execute();
+        $con->close();
+        return $results;
+    }
+
 }

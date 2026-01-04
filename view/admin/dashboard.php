@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-<main class="admin-container">
+<main class="admin-container admin-page">
     
     <!-- Navegacion lateral -->
     <aside class="admin-sidebar">
@@ -20,6 +20,17 @@
                 <i class="bi bi-cart"></i> Pedidos
             </button>
         </nav>
+        
+        <!-- Separador y botones de navegación -->
+        <div class="sidebar-footer">
+            <hr class="sidebar-divider">
+            <a href="?controller=Home&action=verHome" class="sidebar-link">
+                <i class="bi bi-arrow-left"></i> Volver a la web
+            </a>
+            <a href="?controller=Usuario&action=logout" class="sidebar-link sidebar-link-danger">
+                <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+            </a>
+        </div>
     </aside>
 
     <!-- Contenido principal -->
@@ -29,9 +40,20 @@
         <section id="usuarios" class="content-section">
             <div class="section-header">
                 <h1>Gestion de Usuarios</h1>
-                <button class="btn btn-primary" id="btn-nuevo-usuario">
-                    <i class="bi bi-plus-circle"></i> Nuevo Usuario
-                </button>
+                <div class="section-header-buttons">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-currency-exchange"></i> Conversor
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-moneda="EUR"><i class="bi bi-currency-euro"></i> Euros (EUR)</a></li>
+                            <li><a class="dropdown-item" href="#" data-moneda="USD"><i class="bi bi-currency-dollar"></i> Dólares (USD)</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary" id="btn-nuevo-usuario">
+                        <i class="bi bi-plus-circle"></i> Nuevo Usuario
+                    </button>
+                </div>
             </div>
             
             <div class="table-responsive">
@@ -57,9 +79,20 @@
         <section id="productos" class="content-section active-section">
             <div class="section-header">
                 <h1>Gestion de Productos</h1>
-                <button class="btn btn-primary" id="btn-nuevo-producto">
-                    <i class="bi bi-plus-circle"></i> Nuevo Producto
-                </button>
+                <div class="section-header-buttons">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-currency-exchange"></i> Conversor
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-moneda="EUR"><i class="bi bi-currency-euro"></i> Euros (EUR)</a></li>
+                            <li><a class="dropdown-item" href="#" data-moneda="USD"><i class="bi bi-currency-dollar"></i> Dólares (USD)</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary" id="btn-nuevo-producto">
+                        <i class="bi bi-plus-circle"></i> Nuevo Producto
+                    </button>
+                </div>
             </div>
             
             <div class="table-responsive">
@@ -85,9 +118,20 @@
         <section id="categorias" class="content-section">
             <div class="section-header">
                 <h1>Gestion de Categorias</h1>
-                <button class="btn btn-primary" id="btn-nueva-categoria">
-                    <i class="bi bi-plus-circle"></i> Nueva Categoria
-                </button>
+                <div class="section-header-buttons">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-currency-exchange"></i> Conversor
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-moneda="EUR"><i class="bi bi-currency-euro"></i> Euros (EUR)</a></li>
+                            <li><a class="dropdown-item" href="#" data-moneda="USD"><i class="bi bi-currency-dollar"></i> Dólares (USD)</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary" id="btn-nueva-categoria">
+                        <i class="bi bi-plus-circle"></i> Nueva Categoria
+                    </button>
+                </div>
             </div>
             
             <div class="table-responsive">
@@ -110,6 +154,17 @@
         <section id="pedidos" class="content-section">
             <div class="section-header">
                 <h1>Gestion de Pedidos</h1>
+                <div class="section-header-buttons">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-currency-exchange"></i> Conversor
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-moneda="EUR"><i class="bi bi-currency-euro"></i> Euros (EUR)</a></li>
+                            <li><a class="dropdown-item" href="#" data-moneda="USD"><i class="bi bi-currency-dollar"></i> Dólares (USD)</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table">
@@ -185,5 +240,9 @@
     </div>
 </div>
 
-<!-- JavaScript para el panel admin -->
-<script src="assets/js/admin.js"></script>
+<!-- JavaScript modular para el panel admin -->
+<!-- Primero cargamos los módulos, luego inicializacion.js que los inicializa -->
+<script src="assets/js/admin/productos.js"></script>
+<script src="assets/js/admin/lineaPedido.js"></script>
+<script src="assets/js/admin/inicializacion.js"></script>
+<script src="assets/js/admin/conversor.js"></script>
