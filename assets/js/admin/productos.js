@@ -31,7 +31,7 @@ function mostrarProductos(productos) {
             <td>${producto.id_producto}</td>
             <td>${producto.nombre}</td>
             <td>${producto.descripcion}</td>
-            <td>${Number(producto.precio_base).toFixed(2)} €</td>
+            <td class="precio-display" data-precio-base="${producto.precio_base}">${Number(producto.precio_base).toFixed(2)} €</td>
             <td>${producto.imagen || '-'}</td>
             <td>
                 <button class="btn btn-sm btn-warning btn-editar-producto" data-id="${producto.id_producto}">
@@ -46,6 +46,11 @@ function mostrarProductos(productos) {
     });
     
     configurarBotonesProductos();
+    
+    // Reaplicar moneda si el usuario ya había seleccionado otra
+    if (window.aplicarMonedaActual) {
+        window.aplicarMonedaActual();
+    }
 }
 
 //========CONFIGURAR BOTONES DE PRODUCTOS========
