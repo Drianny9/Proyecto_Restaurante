@@ -1,6 +1,6 @@
 <?php
-include_once 'model/LineaPedido.php';
-include_once 'database/database.php';
+include_once __DIR__ . '/LineaPedido.php';
+include_once __DIR__ . '/../database/database.php';
 
 
 class LineaPedidoDAO{
@@ -33,10 +33,18 @@ class LineaPedidoDAO{
         return $listaLineasPedido;
     }
 
-     public static function crearLineaPedido($id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta) {
+     public static function crearLineaPedido($id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta = null) {
         $con = Database::connect();
-        $stmt = $con->prepare("INSERT INTO `linea_pedido` (id_pedido, id_producto, precio_unidad, cantidad, id_oferta) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param('iidii', $id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta);
+        
+        // Si id_oferta es null, usamos una consulta sin ese campo
+        if ($id_oferta === null) {
+            $stmt = $con->prepare("INSERT INTO `linea_pedido` (id_pedido, id_producto, precio_unidad, cantidad) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param('iidi', $id_pedido, $id_producto, $precio_unidad, $cantidad);
+        } else {
+            $stmt = $con->prepare("INSERT INTO `linea_pedido` (id_pedido, id_producto, precio_unidad, cantidad, id_oferta) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param('iidii', $id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta);
+        }
+        
         $results = $stmt->execute();
         $con->close();
         return $results;

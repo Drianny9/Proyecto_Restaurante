@@ -1,5 +1,6 @@
 <!-- CSS especifico para la carta de productos -->
 <link rel="stylesheet" href="assets/css/carta.css">
+<link rel="stylesheet" href="assets/css/hero.css">
 
 <!-- Seccion principal de la carta -->
 <section class="carta-container">
@@ -100,21 +101,11 @@
 
                             <div class="producto-separador"></div>
 
-                            <!-- Checkbox añadir al carrito -->
-                            <label class="añadir-carrito-row">
-                                <input type="checkbox" class="carrito-checkbox" 
-                                       data-id="<?= $producto->getId_producto() ?>"
-                                       data-nombre="<?= addslashes($producto->getNombre()) ?>"
-                                       data-precio="<?= $producto->getPrecio_base() ?>"
-                                       data-imagen="<?= $producto->getImagen() ?>">
-                                <span class="carrito-label">Añadir al carrito</span>
-                            </label>
-
-                            <!-- Boton ver detalles -->
-                            <a href="?controller=Producto&action=verDetalle&id=<?= $producto->getId_producto() ?>" 
-                               class="btn-ver-detalles">
-                                VER DETALLES
-                            </a>
+                            <!-- Boton añadir al carrito -->
+                            <button class="btn btn-cupra-solid w-100" 
+                                    onclick="añadirAlCarrito(<?= $producto->getId_producto() ?>, '<?= addslashes($producto->getNombre()) ?>', <?= $producto->getPrecio_base() ?>, '<?= $producto->getImagen() ?>')">
+                                AÑADIR AL CARRITO
+                            </button>
                         </div>
                     </article>
 
@@ -128,4 +119,5 @@
 </section>
 
 <!-- Script para filtrar productos por categoria -->
-<script src="assets/js/carta/filtros.js"></script>
+<script src="assets/js/carta/filtros.js"></script><!-- Script del carrito (añadir productos) -->
+<script src="assets/js/carrito.js"></script>

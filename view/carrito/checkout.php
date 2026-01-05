@@ -1,5 +1,6 @@
 <!-- CSS del carrito/checkout -->
 <link rel="stylesheet" href="assets/css/carrito.css">
+<link rel="stylesheet" href="assets/css/hero.css">
 
 <!-- Contenedor principal del checkout -->
 <div class="carrito-page">
@@ -97,5 +98,7 @@
 
 </div>
 
+<!-- Script del carrito (funciones compartidas) -->
+<script src="assets/js/carrito.js"></script>
 <!-- Script del checkout -->
 <script src="assets/js/checkout.js"></script>

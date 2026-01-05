@@ -1,29 +1,19 @@
 <?php
 
     class Database{
-        // Configuración para Docker o XAMPP local
-        // Detecta automáticamente si está en Docker (host='db') o local (host='localhost')
-        
-        private static $host_docker = 'db';           // Nombre del servicio en docker-compose
-        private static $host_local = 'localhost';     // XAMPP local
-        private static $user_docker = 'cupra_user';
-        private static $user_local = 'root';
-        private static $pass_docker = 'cupra_password';
-        private static $pass_local = '';
+        // Configuración para XAMPP local
+        private static $host = 'localhost';
+        private static $user = 'root';
+        private static $pass = '';
         private static $db = 'cupra_eats';
 
         // Método estatico para establecer la conexion a la base de datos
         public static function connect(){
-            // Intentar conexión Docker primero, si falla usar local
-            $con = @new mysqli(self::$host_docker, self::$user_docker, self::$pass_docker, self::$db);
+            //Con self le decimos a php que use la variable que tenemos creada arriba
+            $con = new mysqli(self::$host, self::$user, self::$pass, self::$db);
             
             if ($con->connect_error) {
-                // Si falla Docker, intentar conexión local (XAMPP)
-                $con = new mysqli(self::$host_local, self::$user_local, self::$pass_local, self::$db);
-                
-                if ($con->connect_error) {
-                    die("Conexion fallida: " . $con->connect_error);
-                }
+                die("Conexion fallida: " . $con->connect_error);
             }
             
             return $con; // Retornar la conexión si funciona bien

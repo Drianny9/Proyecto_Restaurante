@@ -1,6 +1,6 @@
 <?php
-include_once 'model/Usuario.php';
-include_once 'database/database.php';
+include_once __DIR__ . '/Usuario.php';
+include_once __DIR__ . '/../database/database.php';
 
 class UsuarioDAO{
 
@@ -81,5 +81,25 @@ class UsuarioDAO{
 
         $con->close();
         return $exito;
+    }
+
+    // Actualizar usuario
+    public static function actualizarUsuario($id_usuario, $nombre, $email, $direccion, $telefono, $rol) {
+        $con = Database::connect();
+        $stmt = $con->prepare("UPDATE usuario SET nombre = ?, email = ?, direccion = ?, telefono = ?, rol = ? WHERE id_usuario = ?");
+        $stmt->bind_param('sssssi', $nombre, $email, $direccion, $telefono, $rol, $id_usuario);
+        $results = $stmt->execute();
+        $con->close();
+        return $results;
+    }
+
+    // Eliminar usuario
+    public static function eliminarUsuario($id_usuario) {
+        $con = Database::connect();
+        $stmt = $con->prepare("DELETE FROM usuario WHERE id_usuario = ?");
+        $stmt->bind_param('i', $id_usuario);
+        $results = $stmt->execute();
+        $con->close();
+        return $results;
     }
 }

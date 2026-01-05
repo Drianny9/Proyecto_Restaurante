@@ -1,6 +1,6 @@
 <?php
-include_once 'model/Pedido.php';
-include_once 'database/database.php';
+include_once __DIR__ . '/Pedido.php';
+include_once __DIR__ . '/../database/database.php';
 
 
 class PedidoDAO{
@@ -64,6 +64,24 @@ class PedidoDAO{
         $con = Database::connect();
         $stmt = $con->prepare("UPDATE `pedido` SET estado = ? WHERE id_pedido = ?");
         $stmt->bind_param('si', $estado, $id_pedido);
+        $results = $stmt->execute();
+        $con->close();
+        return $results;
+    }
+
+    public static function actualizarEstadoPedido($id_pedido, $estado) {
+        $con = Database::connect();
+        $stmt = $con->prepare("UPDATE `pedido` SET estado = ? WHERE id_pedido = ?");
+        $stmt->bind_param('si', $estado, $id_pedido);
+        $results = $stmt->execute();
+        $con->close();
+        return $results;
+    }
+
+    public static function eliminarPedido($id_pedido) {
+        $con = Database::connect();
+        $stmt = $con->prepare("DELETE FROM `pedido` WHERE id_pedido = ?");
+        $stmt->bind_param('i', $id_pedido);
         $results = $stmt->execute();
         $con->close();
         return $results;

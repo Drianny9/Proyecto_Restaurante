@@ -18,7 +18,6 @@ function obtenerCarrito() {
 function guardarCarrito(carrito) {
     //convertir el array a texto JSON y lo guardamos
     localStorage.setItem('carrito', JSON.stringify(carrito));
-    alert("Producto añadido!");
     actualizarContadorCarrito();
 }
 

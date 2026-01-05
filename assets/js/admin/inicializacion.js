@@ -12,6 +12,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initLineasPedido === 'function') {
         initLineasPedido();
     }
+    if (typeof inicializarUsuarios === 'function') {
+        inicializarUsuarios();
+    }
+    if (typeof inicializarPedidos === 'function') {
+        inicializarPedidos();
+    }
+    if (typeof inicializarLogs === 'function') {
+        inicializarLogs();
+    }
 });
 
 //=======NAVEGACIÓN ENTRE SECCIONES=========
@@ -42,12 +51,26 @@ function configurarNavegacion() {
                         cargarProductos();
                     }
                     break;
+                case 'usuarios':
+                    if (typeof cargarUsuarios === 'function') {
+                        cargarUsuarios();
+                    }
+                    break;
+                case 'pedidos':
+                    if (typeof cargarPedidos === 'function') {
+                        cargarPedidos();
+                    }
+                    break;
+                case 'logs':
+                    if (typeof cargarLogs === 'function') {
+                        cargarLogs();
+                    }
+                    break;
                 case 'lineas-pedido':
                     if (typeof cargarLineasPedido === 'function') {
                         cargarLineasPedido();
                     }
                     break;
-                // Añadir más casos según se necesiten
             }
         });
     });

@@ -189,3 +189,63 @@
     padding: 5px 10px;
     font-size: 0.85rem;
 }
+
+/* Botones de acciones en tabla */
+.acciones-btns {
+    display: flex;
+    gap: 5px;
+}
+
+/* Filtros de pedidos */
+.filtros-pedidos {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.filtros-pedidos .form-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+
+.filtros-pedidos .form-control,
+.filtros-pedidos .form-select {
+    font-size: 0.9rem;
+}
+
+/* Badge de info */
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    color: white;
+}
+
+/* Estilos para badges de estado */
+.badge {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+/* Modal ajustes */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #34495e;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}

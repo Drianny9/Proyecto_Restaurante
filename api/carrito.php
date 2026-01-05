@@ -1,5 +1,6 @@
 <?php
 //Para finalizar pedido necesitamos hacer la API para guardarlo en la base de datos
+include_once __DIR__ . '/../model/Usuario.php'; // Necesario para deserializar el objeto de sesión
 session_start();
 include_once __DIR__ . '/config.php';
 include_once __DIR__ . '/../model/PedidoDAO.php';
@@ -38,7 +39,9 @@ function procesarPedido($data) {
         return;
     }
     
-    $id_usuario = $_SESSION['usuario']['id_usuario'];
+    // Obtener id_usuario del objeto Usuario en la sesión
+    $usuario = $_SESSION['usuario'];
+    $id_usuario = $usuario->getId_usuario();
     
     // Crear el pedido
     $id_pedido = PedidoDAO::crearPedido($id_usuario, $total);
@@ -58,17 +61,4 @@ function procesarPedido($data) {
     } else {
         respuestaJSON('Fallido', null, 'Error al crear el pedido', 500);
     }
-}
-
-// Función para respuesta JSON con campo requiere_login
-function respuestaJSON($estado, $data = null, $mensaje = '', $codigo = 200, $requiere_login = false) {
-    http_response_code($codigo);
-    header('Content-Type: application/json');
-    echo json_encode([
-        'estado' => $estado,
-        'data' => $data,
-        'mensaje' => $mensaje,
-        'requiere_login' => $requiere_login
-    ]);
-    exit;
 }
