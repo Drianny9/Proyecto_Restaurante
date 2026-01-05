@@ -7,8 +7,8 @@ class LogController
     //Metodo para ver la pantalla de log
     public function verLogin()
     {
-        $view = 'view/log/login.php';
-        include_once 'view/main.php';
+        // Login tiene su propia estructura HTML, no usa main.php
+        include_once 'view/log/login.php';
     }
 
     //Metodo para procesar el Login y asi validar usuarios
@@ -29,13 +29,11 @@ class LogController
             } else {
                 // Login incorrecto
                 $error = "Usuario o contraseña incorrectos";
-                $view = 'view/log/login.php';
-                include_once 'view/main.php';
+                include_once 'view/log/login.php';
             }
         } else {
             $error = "Por favor, completa todos los campos";
-            $view = 'view/log/login.php';
-            include_once 'view/main.php';
+            include_once 'view/log/login.php';
         }
     }
 }

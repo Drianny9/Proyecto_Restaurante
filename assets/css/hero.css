@@ -271,6 +271,11 @@ body {
     transition: none;
 }
 
+.reservation-select::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+}
+
 .reservation-select:focus {
     background-color: transparent;
     border-color: rgba(255, 255, 255, 0.5);

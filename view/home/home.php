@@ -1,3 +1,8 @@
+<!-- Usamos flatpickr para poder incluir un calendario a la hora de reservar -->
+<head>
+    <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+</head>
+
 <!-- Hero Section -->
 <section class="hero-section">
 
@@ -9,7 +14,7 @@
             <p class="lead fw-light mb-4" style="max-width: 450px;">
                 El sabor que redefine la grandeza. Una nueva era gastronómica inspirada en la energía y el diseño.
             </p>
-            
+
             <div class="mb-4">
                 <span class="d-block text-uppercase small text-white-50">POR</span>
                 <span class="fs-2 fw-bold">25,00 €</span>
@@ -104,23 +109,23 @@
 
 <!-- Sección: Descubre Nuestro Mundo -->
 <section class="position-relative w-100 overflow-hidden" style="min-height: 600px;">
-    
-    <img src="assets/images/home/Fondo_2.webp" 
-         alt="Ambiente Cupra" 
-         class="img-fluid w-100 h-100 object-fit-cover position-absolute top-0 start-0"
-         style="z-index: 0;">
+
+    <img src="assets/images/home/Fondo_2.webp"
+        alt="Ambiente Cupra"
+        class="img-fluid w-100 h-100 object-fit-cover position-absolute top-0 start-0"
+        style="z-index: 0;">
 
     <div class="overlay-gradient position-absolute w-100 h-100 top-0 start-0" style="z-index: 1;"></div>
 
     <div class="container position-relative h-100 d-flex flex-column justify-content-center align-items-center text-center" style="z-index: 2; min-height: 600px;">
-        
+
         <h3 class="text-white font-exo fw-light mb-5 display-5">DESCUBRE NUESTRO MUNDO</h3>
 
         <div class="d-flex flex-column flex-md-row gap-4">
             <a href="?controller=Producto&action=verCarta" class="btn btn-cupra-solid px-5 py-3" style="border-radius: 4px;">
                 VER CARTA COMPLETA
             </a>
-            
+
             <a href="#reservar" class="btn btn-cupra-outline px-5 py-3 bg-black bg-opacity-25" style="border-radius: 4px;">
                 RESERVAR MESA
             </a>
@@ -131,7 +136,7 @@
 
 <!-- Sección: Mesas Disponibles -->
 <section class="container-fluid py-5 bg-cupra-dark text-center position-relative" style="padding-top: 5rem !important; padding-bottom: 8rem !important;">
-    
+
     <!-- Título -->
     <div class="mb-5">
         <h2 class="font-exo text-white mb-3" style="font-size: 48px; font-weight: 300; letter-spacing: 2px;">
@@ -145,7 +150,7 @@
 
     <!-- Contenedor con imagen flotante -->
     <div class="container position-relative" style="max-width: 1200px; margin-top: 6rem;">
-        
+
         <!-- Imagen del plato (flotante encima) -->
         <div class="position-absolute top-0 start-50 translate-middle" style="z-index: 10;">
             <img src="assets/images/home/Plato_tapado.webp" alt="Plato Cupra" style="width: 280px; height: auto;">
@@ -153,25 +158,25 @@
 
         <!-- Recuadro de reserva -->
         <div class="reservation-box p-4 rounded-3" style="background: rgb(33, 35, 41); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); padding-top: 8.5rem !important; padding-bottom: 2.5rem !important;">
-            
+
             <div class="row g-4 mb-4">
                 <!-- Fecha -->
                 <div class="col-md-3">
                     <label class="text-white text-start d-block mb-2 small">Fecha</label>
-                    <select class="form-select reservation-select">
-                        <option selected>Todos</option>
-                        <option value="hoy">Hoy</option>
-                        <option value="manana">Mañana</option>
-                        <option value="semana">Esta semana</option>
-                        <option value="mes">Este mes</option>
-                    </select>
+                    <input type="text" id="fecha-reserva" class="form-select reservation-select" placeholder="Selecciona un día" readonly="readonly">
+                </div>
+
+                
+                <!-- Hora -->
+                <div class="col-md-3">
+                    <label class="text-white text-start d-block mb-2 small">Hora</label>
+                    <input type="text" id="hora-reserva" class="form-select reservation-select" placeholder="Selecciona una hora" readonly="readonly">
                 </div>
 
                 <!-- Comensales -->
                 <div class="col-md-3">
                     <label class="text-white text-start d-block mb-2 small">Comensales</label>
-                    <select class="form-select reservation-select">
-                        <option selected>Todos</option>
+                    <select class="form-select reservation-select" placeholder = "Comensales">
                         <option value="1">1 persona</option>
                         <option value="2">2 personas</option>
                         <option value="3">3 personas</option>
@@ -180,16 +185,6 @@
                     </select>
                 </div>
 
-                <!-- Comida -->
-                <div class="col-md-3">
-                    <label class="text-white text-start d-block mb-2 small">Comida</label>
-                    <select class="form-select reservation-select">
-                        <option selected>Todos</option>
-                        <option value="desayuno">Desayuno</option>
-                        <option value="almuerzo">Almuerzo</option>
-                        <option value="cena">Cena</option>
-                    </select>
-                </div>
 
                 <!-- Botón Ver -->
                 <div class="col-md-3 d-flex align-items-end">
@@ -209,7 +204,7 @@
 
 <!-- Sección: Servicios Cupra (Carrusel 3D) -->
 <section class="servicios-cupra bg-cupra-dark py-5">
-    
+
     <!-- Título -->
     <div class="text-center mb-5 pt-5">
         <h2 class="font-exo text-white" style="font-size: 48px; font-weight: 300; letter-spacing: 3px;">
@@ -220,7 +215,7 @@
     <!-- Carrusel 3D -->
     <div class="carousel-3d-container">
         <div class="carousel-3d-wrapper">
-            
+
             <!-- Card 1 -->
             <div class="carousel-card-3d state-center" data-index="0">
                 <img src="assets/images/home/Carrusel_1.webp" alt="Cupra Tasting">
@@ -271,3 +266,7 @@
     </div>
 
 </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+    <script src="assets/js/calendario.js"></script>

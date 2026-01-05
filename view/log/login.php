@@ -1,35 +1,71 @@
+<?php
+// Obtener la ruta base del proyecto
+$basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+?>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <link rel="stylesheet" href="assets/css/log.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - CUPRA Eats</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?php echo $basePath; ?>assets/css/log.css">
 </head>
+<body class="login-page">
+    
+    <!-- Volver a la web -->
+    <a href="<?php echo $basePath; ?>index.php" class="back-link">
+        <i class="bi bi-arrow-left"></i> Volver a la web
+    </a>
 
-<body>
-    <?php include_once 'view/includes/nav.php'; ?>
+    <div class="login-container">
+        <!-- Card de Login -->
+        <div class="login-card">
+            <!-- Logo -->
+            <div class="login-logo">
+                <img src="<?php echo $basePath; ?>assets/images/logos/Logo_cupra_eats.svg" alt="CUPRA Eats">
+            </div>
 
-    <section class="form-login">
-        <h2 class="text-center mb-4">Iniciar sesión</h2>
-        
-        <!--Mensaje de error-->
-        <?php if (isset($error)): ?>
-            <div class="alert alert-danger text-center" role="alert">
-                <?php echo htmlspecialchars($error); ?>
+            <h2 class="login-title">INICIAR SESIÓN</h2>
+
+            <!-- Mostrar errores si existen -->
+            <?php if (isset($error)): ?>
+                <div class="login-error">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <?php echo htmlspecialchars($error); ?>
+                </div>
+            <?php endif; ?>
+
+            <form method="post" action="?controller=Log&action=procesarLogin" class="login-form">
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    ENTRAR
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>¿No tienes cuenta? <a href="?controller=Registro&action=verRegistro">Regístrate aquí</a></p>
             </div>
-        <?php endif; ?>
-        
-        <form method="post" action="?controller=Log&action=procesarLogin">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">ID o Correo electrónico</label>
-                <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Contraseña</label>
-                <input type="password" name="contraseña" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3">Iniciar sesión</button>
-        </form>
-        
-        <p class="text-center">
-            ¿No tienes cuenta? 
-            <a href="?controller=Registro&action=verRegistro">Regístrate aquí</a>
-        </p>
-    </section>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>

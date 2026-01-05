@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Servidor Web (PHP + Apache)
+  web:
+    build: .
+    container_name: cupra_eats_web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - cupra_network
+
+  # Base de datos MySQL
+  db:
+    image: mysql:8.0
+    container_name: cupra_eats_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cupra_eats
+      MYSQL_USER: cupra_user
+      MYSQL_PASSWORD: cupra_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - cupra_network
+
+  # phpMyAdmin (opcional, para gestionar la BD)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: cupra_eats_phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - db
+    networks:
+      - cupra_network
+
+networks:
+  cupra_network:
+    driver: bridge
+
+volumes:
+  db_data:

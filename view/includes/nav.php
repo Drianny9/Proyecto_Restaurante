@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?controller=Usuario&action=login"><i class="bi bi-person fs-5"></i></a>
+                    <a class="nav-link" href="?controller=Log&action=verLogin"><i class="bi bi-person fs-5"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas"><i class="bi bi-list fs-4"></i></a>
