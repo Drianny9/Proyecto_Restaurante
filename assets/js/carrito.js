@@ -21,6 +21,70 @@ function guardarCarrito(carrito) {
     actualizarContadorCarrito();
 }
 
+// Verificar ofertas para productos
+async function verificarOfertas(carrito) {
+    const carritoConOfertas = [];
+    
+    for (const item of carrito) {
+        try {
+            const response = await fetch(`api/ofertas.php?producto=${item.id_producto}`);
+            const resultado = await response.json();
+            
+            const itemConOferta = { ...item };
+            
+            // La API devuelve {estado, data} - data puede ser null si no hay oferta
+            if (resultado.estado === 'Exito' && resultado.data) {
+                const oferta = resultado.data;
+                // Calcular precio con oferta
+                let precioFinal = item.precio;
+                
+                // Prioridad 1: Precio especial
+                if (oferta.precio_especial && oferta.precio_especial > 0) {
+                    precioFinal = parseFloat(oferta.precio_especial);
+                    itemConOferta.oferta = {
+                        tipo: 'precio_especial',
+                        precio_original: item.precio,
+                        precio_oferta: precioFinal,
+                        nombre: oferta.nombre,
+                        id_oferta: oferta.id_oferta
+                    };
+                }
+                // Prioridad 2: Descuento porcentual
+                else if (oferta.descuento_porcentaje && oferta.descuento_porcentaje > 0) {
+                    const descuento = oferta.descuento_porcentaje / 100;
+                    precioFinal = item.precio * (1 - descuento);
+                    itemConOferta.oferta = {
+                        tipo: 'descuento_porcentaje',
+                        precio_original: item.precio,
+                        precio_oferta: precioFinal,
+                        porcentaje: oferta.descuento_porcentaje,
+                        nombre: oferta.nombre,
+                        id_oferta: oferta.id_oferta
+                    };
+                }
+                // Prioridad 3: Oferta por cantidad (2x1, etc.)
+                else if (oferta.cantidad && oferta.cantidad > 1) {
+                    itemConOferta.oferta = {
+                        tipo: 'cantidad',
+                        cantidad_requerida: parseInt(oferta.cantidad),
+                        nombre: oferta.nombre,
+                        id_oferta: oferta.id_oferta
+                    };
+                }
+                
+                itemConOferta.precio_con_oferta = precioFinal;
+            }
+            
+            carritoConOfertas.push(itemConOferta);
+        } catch (error) {
+            console.error('Error al verificar ofertas:', error);
+            carritoConOfertas.push(item);
+        }
+    }
+    
+    return carritoConOfertas;
+}
+
 //Añadir productos al carrito
 function añadirAlCarrito(id_producto, nombre, precio, imagen, cantidad = 1) {
     const carrito = obtenerCarrito();
@@ -114,90 +178,118 @@ function mostrarNotificacion(mensaje) {
 
 // ============ RENDERIZAR CARRITO EN LA PÁGINA ============
 
-function renderizarCarrito() {
+async function renderizarCarrito() {
     const carrito = obtenerCarrito();
     const contenedor = document.getElementById('lista-productos-carrito');
     const subtotalElement = document.getElementById('subtotal-carrito');
     const ivaElement = document.getElementById('iva-carrito');
     const totalElement = document.getElementById('total-carrito');
+    const descuentoElement = document.getElementById('descuento-carrito');
     
     if (!contenedor) return;
     
+    // Obtener templates
+    const templateVacio = document.getElementById('template-carrito-vacio');
+    const templateProducto = document.getElementById('template-producto-carrito');
+    
     if (carrito.length === 0) {
-        contenedor.innerHTML = `
-            <div class="carrito-vacio">
-                <div class="carrito-vacio-icono">
-                    <i class="bi bi-cart-x"></i>
-                </div>
-                <h2>Tu carrito está vacío</h2>
-                <p>Explora nuestra carta y añade productos deliciosos</p>
-                <a href="?controller=Producto&action=verCarta" class="btn btn-cupra-solid px-5 py-3">
-                    VER CARTA
-                </a>
-            </div>
-        `;
+        // Usar template de carrito vacío
+        contenedor.innerHTML = '';
+        if (templateVacio) {
+            contenedor.appendChild(templateVacio.content.cloneNode(true));
+        }
         if (subtotalElement) subtotalElement.textContent = '0,00 €';
         if (ivaElement) ivaElement.textContent = '0,00 €';
         if (totalElement) totalElement.textContent = '0,00 €';
+        if (descuentoElement) {
+            descuentoElement.parentElement.style.display = 'none';
+        }
         return;
     }
     
-    let html = '';
+    // Verificar ofertas
+    const carritoConOfertas = await verificarOfertas(carrito);
     
-    carrito.forEach(item => {
-        const subtotal = item.precio * item.cantidad;
+    contenedor.innerHTML = '';
+    let subtotalOriginal = 0;
+    let subtotalConDescuento = 0;
+    
+    carritoConOfertas.forEach(item => {
         const itemId = item.id_producto || item.id;
-        html += `
-            <div class="producto-card" data-id="${itemId}">
-                <div class="row align-items-center g-3">
-                    <!-- Imagen -->
-                    <div class="col-auto">
-                        <img src="assets/images/carta/${item.imagen}" alt="${item.nombre}" class="producto-imagen">
-                    </div>
-                    
-                    <!-- Info del producto -->
-                    <div class="col">
-                        <h4 class="producto-nombre">${item.nombre}</h4>
-                        <p class="producto-precio mb-0">${item.precio.toFixed(2)} € / unidad</p>
-                    </div>
-                    
-                    <!-- Control de cantidad -->
-                    <div class="col-auto">
-                        <div class="control-cantidad">
-                            <button class="btn-cantidad" onclick="cambiarCantidad('${itemId}', -1)">
-                                <i class="bi bi-dash"></i>
-                            </button>
-                            <span class="cantidad-valor">${item.cantidad}</span>
-                            <button class="btn-cantidad" onclick="cambiarCantidad('${itemId}', 1)">
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Subtotal -->
-                    <div class="col-auto text-end" style="min-width: 100px;">
-                        <span class="producto-subtotal">${subtotal.toFixed(2)} €</span>
-                    </div>
-                    
-                    <!-- Eliminar -->
-                    <div class="col-auto">
-                        <button class="btn-eliminar-producto" onclick="eliminarProducto('${itemId}')" title="Eliminar">
-                            <i class="bi bi-trash3"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
+        const precioOriginal = item.precio;
+        const precioFinal = item.precio_con_oferta || item.precio;
+        const subtotal = precioFinal * item.cantidad;
+        const subtotalSinDescuento = precioOriginal * item.cantidad;
+        
+        subtotalOriginal += subtotalSinDescuento;
+        subtotalConDescuento += subtotal;
+        
+        // Clonar template
+        const clone = templateProducto.content.cloneNode(true);
+        const card = clone.querySelector('.producto-card');
+        
+        // Rellenar datos básicos
+        card.dataset.id = itemId;
+        clone.querySelector('.producto-imagen').src = `assets/images/carta/${item.imagen}`;
+        clone.querySelector('.producto-imagen').alt = item.nombre;
+        clone.querySelector('.cantidad-valor').textContent = item.cantidad;
+        clone.querySelector('.producto-subtotal').textContent = `${subtotal.toFixed(2)} €`;
+        
+        // Nombre con badge de oferta
+        const nombreElement = clone.querySelector('.producto-nombre');
+        nombreElement.textContent = item.nombre;
+        if (item.oferta) {
+            const badge = document.createElement('span');
+            badge.className = 'badge ms-2';
+            if (item.oferta.tipo === 'precio_especial') {
+                badge.classList.add('bg-danger');
+                badge.textContent = 'Precio Especial';
+            } else if (item.oferta.tipo === 'descuento_porcentaje') {
+                badge.classList.add('bg-warning', 'text-dark');
+                badge.textContent = `-${item.oferta.porcentaje}%`;
+            } else if (item.oferta.tipo === 'cantidad') {
+                badge.classList.add('bg-info', 'text-dark');
+                badge.textContent = `${item.oferta.cantidad_requerida}x${item.oferta.cantidad_requerida}`;
+            }
+            nombreElement.appendChild(badge);
+        }
+        
+        // Precio (con tachado si hay oferta)
+        const precioElement = clone.querySelector('.producto-precio');
+        if (item.oferta && (item.oferta.tipo === 'precio_especial' || item.oferta.tipo === 'descuento_porcentaje')) {
+            precioElement.innerHTML = `
+                <span class="text-decoration-line-through text-muted">${precioOriginal.toFixed(2)} €</span>
+                <span class="text-danger fw-bold ms-2">${precioFinal.toFixed(2)} €</span> / unidad
+            `;
+        } else {
+            precioElement.textContent = `${precioFinal.toFixed(2)} € / unidad`;
+        }
+        
+        // Configurar botones con eventos (sin onclick inline)
+        clone.querySelector('.btn-restar').addEventListener('click', () => cambiarCantidad(itemId, -1));
+        clone.querySelector('.btn-sumar').addEventListener('click', () => cambiarCantidad(itemId, 1));
+        clone.querySelector('.btn-eliminar-producto').addEventListener('click', () => eliminarProducto(itemId));
+        
+        contenedor.appendChild(clone);
     });
     
-    contenedor.innerHTML = html;
-    
     // Calcular totales
-    const subtotal = calcularTotal();
-    const iva = subtotal * 0.10; // 10% IVA
-    const total = subtotal + iva;
+    const descuentoTotal = subtotalOriginal - subtotalConDescuento;
+    const iva = subtotalConDescuento * 0.10;
+    const total = subtotalConDescuento + iva;
     
-    if (subtotalElement) subtotalElement.textContent = subtotal.toFixed(2).replace('.', ',') + ' €';
+    // Mostrar descuento solo si existe
+    const descuentoRow = document.getElementById('descuento-row');
+    if (descuentoRow) {
+        if (descuentoTotal > 0) {
+            descuentoElement.textContent = '-' + descuentoTotal.toFixed(2).replace('.', ',') + ' €';
+            descuentoRow.style.display = 'flex';
+        } else {
+            descuentoRow.style.display = 'none';
+        }
+    }
+    
+    if (subtotalElement) subtotalElement.textContent = subtotalConDescuento.toFixed(2).replace('.', ',') + ' €';
     if (ivaElement) ivaElement.textContent = iva.toFixed(2).replace('.', ',') + ' €';
     if (totalElement) totalElement.textContent = total.toFixed(2).replace('.', ',') + ' €';
 }

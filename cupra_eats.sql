@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-01-2026 a las 17:29:00
+-- Tiempo de generación: 05-01-2026 a las 16:24:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -57,6 +57,17 @@ CREATE TABLE `linea_pedido` (
   `cantidad` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `linea_pedido`
+--
+
+INSERT INTO `linea_pedido` (`id_linea`, `id_pedido`, `id_producto`, `id_oferta`, `precio_unidad`, `cantidad`) VALUES
+(1, 1, 2, NULL, 12.00, 1),
+(2, 1, 1, NULL, 16.50, 1),
+(39, 16, 1, NULL, 16.50, 1),
+(40, 16, 3, NULL, 15.00, 1),
+(41, 16, 5, NULL, 6.00, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -86,6 +97,13 @@ CREATE TABLE `oferta` (
   `activa` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `oferta`
+--
+
+INSERT INTO `oferta` (`id_oferta`, `nombre`, `descripcion`, `descuento_porcentaje`, `fecha_inicio`, `fecha_fin`, `activa`) VALUES
+(2, 'SWEET WEEKEND', '20% OFF en todos nuestros postres gourmet', 20.00, '2026-01-05', '2026-01-31', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +116,17 @@ CREATE TABLE `oferta_producto` (
   `precio_especial` decimal(10,2) DEFAULT NULL,
   `cantidad` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `oferta_producto`
+--
+
+INSERT INTO `oferta_producto` (`id_oferta`, `id_producto`, `precio_especial`, `cantidad`) VALUES
+(2, 11, NULL, NULL),
+(2, 12, NULL, NULL),
+(2, 13, NULL, NULL),
+(2, 14, NULL, NULL),
+(2, 15, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -112,6 +141,14 @@ CREATE TABLE `pedido` (
   `importe_total` decimal(12,2) NOT NULL,
   `id_usuario` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedido`
+--
+
+INSERT INTO `pedido` (`id_pedido`, `fecha`, `estado`, `importe_total`, `id_usuario`) VALUES
+(1, '2026-01-05 12:41:29', 'pendiente', 31.35, 1),
+(16, '2026-01-05 13:22:39', 'pendiente', 41.25, 1);
 
 -- --------------------------------------------------------
 
@@ -252,7 +289,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `linea_pedido`
 --
 ALTER TABLE `linea_pedido`
-  MODIFY `id_linea` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_linea` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `log`
@@ -264,13 +301,13 @@ ALTER TABLE `log`
 -- AUTO_INCREMENT de la tabla `oferta`
 --
 ALTER TABLE `oferta`
-  MODIFY `id_oferta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_oferta` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`

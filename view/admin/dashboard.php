@@ -112,6 +112,21 @@
                     </tbody>
                 </table>
             </div>
+            
+            <!-- Template: Fila de producto -->
+            <template id="template-fila-producto">
+                <tr>
+                    <td class="producto-id"></td>
+                    <td class="producto-nombre"></td>
+                    <td class="producto-descripcion"></td>
+                    <td class="precio-display" data-precio-base=""></td>
+                    <td class="producto-imagen"></td>
+                    <td>
+                        <button class="btn btn-sm btn-warning btn-editar-producto">Editar</button>
+                        <button class="btn btn-sm btn-danger btn-eliminar-producto">Eliminar</button>
+                    </td>
+                </tr>
+            </template>
         </section>
 
         <!-- SECCION LOGS -->

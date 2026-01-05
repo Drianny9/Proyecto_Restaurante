@@ -52,7 +52,10 @@
                 <?php foreach ($productos as $producto): ?>
                     
                     <!-- Tarjeta de producto individual -->
-                    <article class="producto-card" data-categoria="<?= $producto->getId_categoria() ?>">
+                    <article class="producto-card" 
+                             data-categoria="<?= $producto->getId_categoria() ?>"
+                             data-producto-id="<?= $producto->getId_producto() ?>"
+                             data-precio-base="<?= $producto->getPrecio_base() ?>">
                         
                         <!-- Imagen del producto con boton de favorito -->
                         <div class="producto-imagen-container">
@@ -86,7 +89,7 @@
                             <div class="producto-separador"></div>
                             
                             <!-- Precio -->
-                            <p class="producto-precio">
+                            <p class="producto-precio" data-precio-elemento>
                                 <span class="precio-label">Precio recomendado</span>
                                 <span class="precio-valor"><?= number_format($producto->getPrecio_base(), 0) ?> €</span>
                             </p>
@@ -118,6 +121,26 @@
     </div>
 </section>
 
+<!-- ============ TEMPLATES PARA OFERTAS ============ -->
+
+<!-- Template: Badge de oferta (precio especial) -->
+<template id="template-badge-oferta">
+    <span class="badge bg-danger position-absolute top-0 start-0 m-2" style="z-index: 10;">OFERTA</span>
+</template>
+
+<!-- Template: Badge de descuento porcentual -->
+<template id="template-badge-descuento">
+    <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2" style="z-index: 10;"></span>
+</template>
+
+<!-- Template: Badge de cantidad (2x1, etc) -->
+<template id="template-badge-cantidad">
+    <span class="badge bg-info text-dark position-absolute top-0 start-0 m-2" style="z-index: 10;"></span>
+</template>
+
 <!-- Script para filtrar productos por categoria -->
-<script src="assets/js/carta/filtros.js"></script><!-- Script del carrito (añadir productos) -->
+<script src="assets/js/carta/filtros.js"></script>
+<!-- Script del carrito (añadir productos) -->
 <script src="assets/js/carrito.js"></script>
+<!-- Script para mostrar ofertas en la carta -->
+<script src="assets/js/carta/ofertas.js"></script>

@@ -18,6 +18,7 @@ function cargarProductos() {
 //========MOSTRAR PRODUCTOS EN LA TABLA========
 function mostrarProductos(productos) {
     const tbody = document.getElementById('tabla-productos');
+    const template = document.getElementById('template-fila-producto');
     tbody.innerHTML = '';
     
     if (productos.length === 0) {
@@ -26,23 +27,25 @@ function mostrarProductos(productos) {
     }
     
     productos.forEach(producto => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${producto.id_producto}</td>
-            <td>${producto.nombre}</td>
-            <td>${producto.descripcion}</td>
-            <td class="precio-display" data-precio-base="${producto.precio_base}">${Number(producto.precio_base).toFixed(2)} €</td>
-            <td>${producto.imagen || '-'}</td>
-            <td>
-                <button class="btn btn-sm btn-warning btn-editar-producto" data-id="${producto.id_producto}">
-                    Editar
-                </button>
-                <button class="btn btn-sm btn-danger btn-eliminar-producto" data-id="${producto.id_producto}">
-                    Eliminar
-                </button>
-            </td>
-        `;
-        tbody.appendChild(fila);
+        // Clonar template
+        const clone = template.content.cloneNode(true);
+        
+        // Rellenar datos
+        clone.querySelector('.producto-id').textContent = producto.id_producto;
+        clone.querySelector('.producto-nombre').textContent = producto.nombre;
+        clone.querySelector('.producto-descripcion').textContent = producto.descripcion;
+        
+        const precioCell = clone.querySelector('.precio-display');
+        precioCell.dataset.precioBase = producto.precio_base;
+        precioCell.textContent = `${Number(producto.precio_base).toFixed(2)} €`;
+        
+        clone.querySelector('.producto-imagen').textContent = producto.imagen || '-';
+        
+        // Configurar botones con data-id
+        clone.querySelector('.btn-editar-producto').dataset.id = producto.id_producto;
+        clone.querySelector('.btn-eliminar-producto').dataset.id = producto.id_producto;
+        
+        tbody.appendChild(clone);
     });
     
     configurarBotonesProductos();

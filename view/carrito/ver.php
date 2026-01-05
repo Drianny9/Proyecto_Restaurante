@@ -64,6 +64,10 @@
                             <span class="text-white-50">Subtotal</span>
                             <span class="text-white" id="subtotal-carrito">0,00 €</span>
                         </div>
+                        <div class="d-flex justify-content-between mb-2" id="descuento-row" style="display: none;">
+                            <span class="text-success">Descuento (Ofertas)</span>
+                            <span class="text-success" id="descuento-carrito">0,00 €</span>
+                        </div>
                         <div class="d-flex justify-content-between mb-3">
                             <span class="text-white-50">IVA (10%)</span>
                             <span class="text-white" id="iva-carrito">0,00 €</span>
@@ -90,6 +94,65 @@
 </section>
 
 </div>
+
+<!-- ============ TEMPLATES ============ -->
+
+<!-- Template: Carrito vacío -->
+<template id="template-carrito-vacio">
+    <div class="carrito-vacio">
+        <div class="carrito-vacio-icono">
+            <i class="bi bi-cart-x"></i>
+        </div>
+        <h2>Tu carrito está vacío</h2>
+        <p>Explora nuestra carta y añade productos deliciosos</p>
+        <a href="?controller=Producto&action=verCarta" class="btn btn-cupra-solid px-5 py-3">
+            VER CARTA
+        </a>
+    </div>
+</template>
+
+<!-- Template: Producto en carrito -->
+<template id="template-producto-carrito">
+    <div class="producto-card" data-id="">
+        <div class="row align-items-center g-3">
+            <!-- Imagen -->
+            <div class="col-auto">
+                <img src="" alt="" class="producto-imagen">
+            </div>
+            
+            <!-- Info del producto -->
+            <div class="col">
+                <h4 class="producto-nombre"></h4>
+                <p class="producto-precio mb-0"></p>
+            </div>
+            
+            <!-- Control de cantidad -->
+            <div class="col-auto">
+                <div class="control-cantidad">
+                    <button class="btn-cantidad btn-restar">
+                        <i class="bi bi-dash"></i>
+                    </button>
+                    <span class="cantidad-valor"></span>
+                    <button class="btn-cantidad btn-sumar">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Subtotal -->
+            <div class="col-auto text-end" style="min-width: 100px;">
+                <span class="producto-subtotal"></span>
+            </div>
+            
+            <!-- Eliminar -->
+            <div class="col-auto">
+                <button class="btn-eliminar-producto" title="Eliminar">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
 
 <!-- Script del carrito -->
 <script src="assets/js/carrito.js"></script>
