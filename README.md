@@ -1,3 +1,8 @@
+# EN LA RAIZ DEL PROYECTO SE ENCUENTRA LA MEMORIA
+# El archivo se encuentra como (Memoria_CUPRA_EATS.docx.pdf)
+
+
+
 # Proyecto_Restaurante
 Primer proyecto DAW2 de restaurante
 
