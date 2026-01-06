@@ -7,7 +7,7 @@
         private static $pass = '';
         private static $db = 'cupra_eats';
 
-        // DESPUÉS (InfinityFree):
+        //DESPUÉS (InfinityFree):
         // private static $host = 'sql211.infinityfree.com';
         // private static $user = 'if0_40834807';           
         // private static $pass = 'Dribat19802002';       
@@ -21,6 +21,9 @@
             if ($con->connect_error) {
                 die("Conexion fallida: " . $con->connect_error);
             }
+            
+            // Establecer charset UTF-8 para manejar correctamente los caracteres especiales
+            $con->set_charset("utf8mb4");
             
             return $con; // Retornar la conexión si funciona bien
         }

@@ -32,32 +32,32 @@
         <div class="carousel-track d-flex gap-3 px-4 pb-4 overflow-auto">
             <div class="carousel-card text-center text-white">
                 <div class="glass-box">
-                    <img src="assets/images/home/Plato_tapado.webp" alt="Plato" class="img-fluid" style="max-height: 80px;">
-                    <small class="text-uppercase letter-spacing-1">FORMENTOR</small>
+                    <img src="assets/images/carta/Tartar.webp" alt="Tartar" class="img-fluid" style="max-height: 80px;">
+                    <small class="text-uppercase letter-spacing-1">TARTAR</small>
                 </div>
             </div>
             <div class="carousel-card text-center text-white">
                 <div class="glass-box">
-                    <img src="assets/images/home/Plato_tapado.webp" alt="Plato" class="img-fluid" style="max-height: 80px;">
-                    <small class="text-uppercase letter-spacing-1">FORMENTOR</small>
+                    <img src="assets/images/carta/Pulpo.webp" alt="Pulpo" class="img-fluid" style="max-height: 80px;">
+                    <small class="text-uppercase letter-spacing-1">PULPO</small>
                 </div>
             </div>
             <div class="carousel-card text-center text-white">
                 <div class="glass-box">
-                    <img src="assets/images/home/Plato_tapado.webp" alt="Plato" class="img-fluid" style="max-height: 80px;">
-                    <small class="text-uppercase letter-spacing-1">FORMENTOR</small>
+                    <img src="assets/images/carta/Brownie.webp" alt="Brownie" class="img-fluid" style="max-height: 80px;">
+                    <small class="text-uppercase letter-spacing-1">BROWNIE</small>
                 </div>
             </div>
             <div class="carousel-card text-center text-white">
                 <div class="glass-box">
-                    <img src="assets/images/home/Plato_tapado.webp" alt="Plato" class="img-fluid" style="max-height: 80px;">
-                    <small class="text-uppercase letter-spacing-1">FORMENTOR</small>
+                    <img src="assets/images/carta/Coctel.webp" alt="Cóctel" class="img-fluid" style="max-height: 80px;">
+                    <small class="text-uppercase letter-spacing-1">CÓCTEL</small>
                 </div>
             </div>
             <div class="carousel-card text-center text-white">
                 <div class="glass-box">
-                    <img src="assets/images/home/Plato_tapado.webp" alt="Plato" class="img-fluid" style="max-height: 80px;">
-                    <small class="text-uppercase letter-spacing-1">FORMENTOR</small>
+                    <img src="assets/images/carta/Espresso.webp" alt="Espresso" class="img-fluid" style="max-height: 80px;">
+                    <small class="text-uppercase letter-spacing-1">ESPRESSO</small>
                 </div>
             </div>
         </div>
