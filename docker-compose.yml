@@ -20,10 +20,8 @@ services:
     container_name: cupra_eats_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: cupra_eats
-      MYSQL_USER: cupra_user
-      MYSQL_PASSWORD: cupra_password
     ports:
       - "3307:3306"
     volumes:
@@ -41,8 +39,7 @@ services:
       - "8081:80"
     environment:
       PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: root
+      PMA_ARBITRARY: 1
     depends_on:
       - db
     networks:
