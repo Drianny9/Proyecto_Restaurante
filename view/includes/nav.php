@@ -5,7 +5,7 @@
             <img src="assets/images/logos/Logo_cupra_eats.svg" alt="CUPRA EATS" width="180" height="auto" class="d-inline-block">
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -13,7 +13,7 @@
             <ul class="navbar-nav align-items-center gap-4">
                 <li class="nav-item"><a class="nav-link" href="?controller=Home&action=verHome">HOME</a></li>
                 <li class="nav-item"><a class="nav-link" href="?controller=Producto&action=verCarta">CARTA</a></li>
-                <li class="nav-item"><a class="nav-link" href="#nosotros">NOSOTROS</a></li>
+                <li class="nav-item"><a class="nav-link" href="?controller=Nosotros&action=verNosotros">NOSOTROS</a></li>
                 
                 <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->getRol() === 'admin'): ?>
                 <li class="nav-item">
@@ -38,7 +38,7 @@
                         <i class="bi bi-person-fill fs-5"></i> <?php echo htmlspecialchars($_SESSION['usuario']->getNombre()); ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" style="background-color: rgba(17, 17, 17, 0.95); border: 1px solid rgba(166, 109, 86, 0.2);">
-                        <li><a class="dropdown-item text-white" href="?controller=Log&action=cerrarSesion">
+                        <li><a class="dropdown-item text-white dropdown-item-no-hover" href="?controller=Log&action=cerrarSesion" style="background-color: transparent !important;">
                             <i class="bi bi-box-arrow-right"></i> Cerrar sesión
                         </a></li>
                     </ul>
@@ -48,10 +48,6 @@
                     <a class="nav-link" href="?controller=Log&action=verLogin"><i class="bi bi-person fs-5"></i></a>
                 </li>
                 <?php endif; ?>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas"><i class="bi bi-list fs-4"></i></a>
-                </li>
             </ul>
         </div>
     </div>
@@ -72,11 +68,11 @@
                 <a class="nav-link text-white py-3" href="?controller=Producto&action=verCarta">Carta</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white py-3" href="#nosotros">Nosotros</a>
+                <a class="nav-link text-white py-3" href="?controller=Nosotros&action=verNosotros">Nosotros</a>
             </li>
             <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->getRol() === 'admin'): ?>
             <li class="nav-item">
-                <a class="nav-link text-warning py-3" href="?controller=Admin&action=verDashboard">
+                <a class="nav-link text-warning py-3" href="?controller=Admin&action=verPanel">
                     <i class="bi bi-gear-fill"></i> Panel Admin
                 </a>
             </li>

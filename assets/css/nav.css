@@ -154,6 +154,31 @@
     background-color: rgba(255, 255, 255, 0.7);
 }
 
+/* ===== DROPDOWN MENU ===== */
+.dropdown-menu {
+    background-color: rgba(17, 17, 17, 0.95) !important;
+    border: 1px solid rgba(166, 109, 86, 0.2) !important;
+}
+
+.dropdown-item {
+    color: var(--cupra-white) !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item:active {
+    background-color: transparent !important;
+    color: var(--cupra-white) !important;
+}
+
+.dropdown-item-no-hover:hover,
+.dropdown-item-no-hover:focus,
+.dropdown-item-no-hover:active {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: var(--cupra-white) !important;
+}
+
 /* ===== OFFCANVAS MENU ===== */
 .offcanvas {
     background: var(--cupra-dark) !important;

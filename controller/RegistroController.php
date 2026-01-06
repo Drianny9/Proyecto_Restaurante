@@ -12,7 +12,7 @@ include_once 'model/LogDAO.php';
         public function procesarRegistro(){
             //Comprobamos que existe nombre, email y contraseña y le asignamos lo que se pone en el formulario
             if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['password'])) {
-                $nombre = trim($_POST['nombre']);
+                $nombre = trim($_POST['nombre']); //trim limpia espacios en blanco
                 $email = trim($_POST['email']);
                 $password = $_POST['password'];
                 $direccion = isset($_POST['direccion']) ? trim($_POST['direccion']) : null;

@@ -21,7 +21,7 @@
             </div>
 
             <div class="d-flex gap-3">
-                <button class="btn btn-outline-light rounded-0 px-4 py-2">ENCUÉNTRANOS</button>
+                <a href="?controller=Nosotros&action=verNosotros" class="btn btn-outline-light rounded-0 px-4 py-2">ENCUÉNTRANOS</a>
                 <a href="?controller=Producto&action=verCarta" class="btn btn-light rounded-0 px-4 py-2 fw-bold">VER CARTA</a>
             </div>
         </div>
@@ -80,7 +80,7 @@
                 <a class="nav-link text-white py-3" href="?controller=Producto&action=verCarta">Carta</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white py-3" href="#nosotros">Nosotros</a>
+                <a class="nav-link text-white py-3" href="?controller=Nosotros&action=verNosotros">Nosotros</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white py-3" href="?controller=Carrito&action=verCarrito">
