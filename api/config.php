@@ -1,4 +1,8 @@
 <?php
+// Iniciar sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 //Configuración comun en todas las APIs
 header("Access-Control-Allow-Origin: *");
@@ -15,4 +19,11 @@ function respuestaJSON($estado, $data = null, $mensaje = null, $codigo = 200, $r
     if($requiere_login) {$respuesta['requiere_login'] = true;}
     echo json_encode($respuesta); //Convertimos el array a json
     exit;
+}
+
+//Función para verificar que el usuario es admin
+function verificarAdmin() {
+    if (!isset($_SESSION['usuario']) || $_SESSION['usuario']->getRol() !== 'admin') {
+        respuestaJSON('Fallido', null, 'Acceso denegado. Se requieren permisos de administrador.', 403);
+    }
 }

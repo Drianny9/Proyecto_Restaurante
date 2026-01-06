@@ -1,6 +1,5 @@
 <?php
 // API REST para gestión de pedidos
-session_start();
 include_once __DIR__ . '/config.php';
 include_once __DIR__ . '/../model/PedidoDAO.php';
 include_once __DIR__ . '/../model/LineaPedidoDAO.php';

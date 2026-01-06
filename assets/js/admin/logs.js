@@ -63,10 +63,9 @@ function eliminarLog(id) {
     }
 }
 
-// Limpiar todos los logs (función para implementar en backend)
+// Limpiar todos los logs
 function limpiarTodosLogs() {
     if (confirm('¿Estás seguro de que quieres eliminar TODOS los logs? Esta acción no se puede deshacer.')) {
-        // Por ahora eliminamos uno por uno los logs visibles
         const tabla = document.getElementById('tabla-logs');
         const filas = tabla.querySelectorAll('tr');
         
@@ -75,7 +74,6 @@ function limpiarTodosLogs() {
             return;
         }
         
-        // Nota: En producción, esto debería ser una llamada a un endpoint específico
         alert('Función de limpieza masiva no implementada. Elimina los logs individualmente.');
     }
 }

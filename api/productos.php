@@ -80,7 +80,13 @@ switch ($metodo) {
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (isset($data['id'])) {
-            $resultado = ProductoDAO::eliminarProducto($data['id']);
+            $id = $data['id'];
+            
+            // Obtener info del producto antes de eliminarlo para el log
+            $producto = ProductoDAO::getProductoById($id);
+            $nombreProducto = $producto ? $producto->getNombre() : "ID {$id}";
+            
+            $resultado = ProductoDAO::eliminarProducto($id);
 
             if ($resultado) {
                 respuestaJSON('Exito', null, 'Producto eliminado correctamente');

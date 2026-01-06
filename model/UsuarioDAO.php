@@ -34,7 +34,7 @@ class UsuarioDAO{
         return $listaUsuarios;
     }
 
-    public static function validarUsuario($email, $contraseña)
+    public static function validarUsuario($email, $password)
     {
         $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM usuario WHERE email = ?");
@@ -46,7 +46,7 @@ class UsuarioDAO{
             $usuario = $result->fetch_object('Usuario');
 
             //Verifica la contraseña (si está hasheada/encriptada)
-            if (password_verify($contraseña, $usuario->getContraseña())) {
+            if (password_verify($password, $usuario->getPassword())) {
                 $con->close();
                 return $usuario; //Login correcto
             }
@@ -57,7 +57,7 @@ class UsuarioDAO{
     }
 
     //Funcion para registrar usuarios
-    public static function registrarusuarios($nombre, $email, $contraseña, $direccion = null, $telefono = null, $rol = 'user'){
+    public static function registrarusuarios($nombre, $email, $password, $direccion = null, $telefono = null, $rol = 'user'){
         $con = Database::connect();
 
         //Verificamos si el email ya existe
@@ -72,11 +72,11 @@ class UsuarioDAO{
         }
 
         //Hasheamos la contraseña
-        $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT); //PASSWORD_DEFAULT es para que php use el algoritmo más fuerte que tiene instalado
+        $password_hash = password_hash($password, PASSWORD_DEFAULT); //PASSWORD_DEFAULT es para que php use el algoritmo más fuerte que tiene instalado
 
         //Insertamos nuevo usuario
-        $stmt = $con->prepare("INSERT INTO usuario(nombre, email, contraseña, direccion, telefono, rol) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt-> bind_param('ssssss', $nombre, $email, $contraseña_hash, $direccion, $telefono, $rol);
+        $stmt = $con->prepare("INSERT INTO usuario(nombre, email, password, direccion, telefono, rol) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt-> bind_param('ssssss', $nombre, $email, $password_hash, $direccion, $telefono, $rol);
         $exito = $stmt->execute();
 
         $con->close();

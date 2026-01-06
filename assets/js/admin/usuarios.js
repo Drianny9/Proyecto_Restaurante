@@ -50,8 +50,8 @@ function abrirModalNuevoUsuario() {
     document.getElementById('modalUsuarioTitulo').textContent = 'Nuevo Usuario';
     document.getElementById('formUsuario').reset();
     document.getElementById('usuario-id').value = '';
-    document.getElementById('campo-contraseña').style.display = 'block';
-    document.getElementById('usuario-contraseña').required = true;
+    document.getElementById('campo-password').style.display = 'block';
+    document.getElementById('usuario-password').required = true;
     
     const modal = new bootstrap.Modal(document.getElementById('modalUsuario'));
     modal.show();
@@ -59,7 +59,7 @@ function abrirModalNuevoUsuario() {
 
 // Editar usuario existente
 function editarUsuario(id) {
-    fetch(`api/usuarios.php?id=${id}`)
+    fetch('api/usuarios.php?id=' + id)
         .then(response => response.json())
         .then(data => {
             if (data.estado === 'Exito') {
@@ -71,8 +71,8 @@ function editarUsuario(id) {
                 document.getElementById('usuario-telefono').value = usuario.telefono || '';
                 document.getElementById('usuario-direccion').value = usuario.direccion || '';
                 document.getElementById('usuario-rol').value = usuario.rol;
-                document.getElementById('campo-contraseña').style.display = 'none';
-                document.getElementById('usuario-contraseña').required = false;
+                document.getElementById('campo-password').style.display = 'none';
+                document.getElementById('usuario-password').required = false;
                 
                 const modal = new bootstrap.Modal(document.getElementById('modalUsuario'));
                 modal.show();
@@ -112,7 +112,7 @@ function guardarUsuario() {
         .catch(error => console.error('Error:', error));
     } else {
         // Crear nuevo
-        datos.contraseña = document.getElementById('usuario-contraseña').value;
+        datos.password = document.getElementById('usuario-password').value;
         fetch('api/usuarios.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -13,12 +13,24 @@ class CarritoController{
     
     //Mostrar página de checkout/pago
     public function checkout(){
+        // Verificar que el usuario esté logueado
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: index.php?controller=Log&action=verLogin');
+            exit;
+        }
+        
         $view = 'view/carrito/checkout.php';
         include_once 'view/main.php';
     }
     
     //Mostrar página de confirmación
     public function confirmacion(){
+        // Verificar que el usuario esté logueado
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: index.php?controller=Log&action=verLogin');
+            exit;
+        }
+        
         $id_pedido = isset($_GET['id']) ? intval($_GET['id']) : 0;
         
         if ($id_pedido > 0) {

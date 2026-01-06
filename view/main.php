@@ -47,11 +47,14 @@
     <?php endif; ?>
     
     
+    <!-- Scripts solo para páginas normales (no admin) -->
+    <?php if (!$esAdmin): ?>
     <!-- Script global del carrito (localStorage) -->
     <script src="assets/js/carrito.js"></script>
     
     <!-- Script del carrusel 3D -->
     <script src="assets/js/carousel3d.js"></script>
+    <?php endif; ?>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

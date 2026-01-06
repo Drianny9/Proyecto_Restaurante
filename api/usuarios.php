@@ -1,6 +1,5 @@
 <?php
 // API REST para gestión de usuarios
-session_start();
 include_once __DIR__ . '/config.php';
 include_once __DIR__ . '/../model/UsuarioDAO.php';
 
@@ -73,19 +72,19 @@ function obtenerUsuario($id) {
 function crearUsuario() {
     $data = json_decode(file_get_contents("php://input"), true);
     
-    if (!isset($data['nombre']) || !isset($data['email']) || !isset($data['contraseña'])) {
+    if (!isset($data['nombre']) || !isset($data['email']) || !isset($data['password'])) {
         respuestaJSON('Fallido', null, 'Datos incompletos: nombre, email y contraseña son requeridos', 400);
         return;
     }
     
     $nombre = $data['nombre'];
     $email = $data['email'];
-    $contraseña = $data['contraseña'];
+    $password = $data['password'];
     $direccion = isset($data['direccion']) ? $data['direccion'] : null;
     $telefono = isset($data['telefono']) ? $data['telefono'] : null;
     $rol = isset($data['rol']) ? $data['rol'] : 'user';
     
-    $resultado = UsuarioDAO::registrarusuarios($nombre, $email, $contraseña, $direccion, $telefono, $rol);
+    $resultado = UsuarioDAO::registrarusuarios($nombre, $email, $password, $direccion, $telefono, $rol);
     
     if ($resultado) {
         respuestaJSON('Exito', null, 'Usuario creado correctamente', 201);
@@ -122,6 +121,10 @@ function actualizarUsuario() {
 // Eliminar usuario
 function eliminarUsuario($id) {
     $id_usuario = intval($id);
+    
+    // Obtener info del usuario antes de eliminarlo para el log
+    $usuario = UsuarioDAO::getUsuarioById($id_usuario);
+    $emailUsuario = $usuario ? $usuario->getEmail() : "ID {$id_usuario}";
     
     $resultado = UsuarioDAO::eliminarUsuario($id_usuario);
     

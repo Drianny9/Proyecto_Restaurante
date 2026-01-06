@@ -5,7 +5,7 @@ class Usuario{
     private $id_usuario;
     private $nombre;
     private $email;
-    private $contraseña;
+    private $password;
     private $direccion;
     private $telefono;
     private $rol;
@@ -25,8 +25,8 @@ class Usuario{
         return $this->email;
     }
 
-    public function getContraseña(){
-        return $this->contraseña;
+    public function getPassword(){
+        return $this->password;
     }
 
     public function getDireccion(){
@@ -54,8 +54,8 @@ class Usuario{
         $this->email = $email;
     }
 
-    public function setContraseña($contraseña){
-        $this->contraseña = $contraseña;
+    public function setPassword($password){
+        $this->password = $password;
     }
 
     public function setDireccion($direccion){

@@ -15,6 +15,14 @@
                 <li class="nav-item"><a class="nav-link" href="?controller=Producto&action=verCarta">CARTA</a></li>
                 <li class="nav-item"><a class="nav-link" href="#nosotros">NOSOTROS</a></li>
                 
+                <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->getRol() === 'admin'): ?>
+                <li class="nav-item">
+                    <a class="nav-link text-warning fw-bold" href="?controller=Admin&action=verPanel">
+                        <i class="bi bi-gear-fill"></i> ADMIN
+                    </a>
+                </li>
+                <?php endif; ?>
+                
                 <li class="d-none d-lg-block text-white opacity-50">|</li>
 
                 <li class="nav-item">
@@ -23,9 +31,24 @@
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="contador-carrito" style="font-size: 0.6rem;">0</span>
                     </a>
                 </li>
+                
+                <?php if (isset($_SESSION['usuario'])): ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-fill fs-5"></i> <?php echo htmlspecialchars($_SESSION['usuario']->getNombre()); ?>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" style="background-color: rgba(17, 17, 17, 0.95); border: 1px solid rgba(166, 109, 86, 0.2);">
+                        <li><a class="dropdown-item text-white" href="?controller=Log&action=cerrarSesion">
+                            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                        </a></li>
+                    </ul>
+                </li>
+                <?php else: ?>
                 <li class="nav-item">
                     <a class="nav-link" href="?controller=Log&action=verLogin"><i class="bi bi-person fs-5"></i></a>
                 </li>
+                <?php endif; ?>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas"><i class="bi bi-list fs-4"></i></a>
                 </li>
@@ -51,11 +74,35 @@
             <li class="nav-item">
                 <a class="nav-link text-white py-3" href="#nosotros">Nosotros</a>
             </li>
+            <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->getRol() === 'admin'): ?>
+            <li class="nav-item">
+                <a class="nav-link text-warning py-3" href="?controller=Admin&action=verDashboard">
+                    <i class="bi bi-gear-fill"></i> Panel Admin
+                </a>
+            </li>
+            <?php endif; ?>
             <li class="nav-item">
                 <a class="nav-link text-white py-3" href="?controller=Carrito&action=verCarrito">
                     Carrito <span class="badge bg-danger" id="contador-carrito-menu">0</span>
                 </a>
             </li>
+            
+            <?php if (isset($_SESSION['usuario'])): ?>
+            <li class="nav-item border-top border-secondary mt-3 pt-3">
+                <div class="px-3 pb-2 text-white-50 small">
+                    <i class="bi bi-person-fill"></i> <?php echo htmlspecialchars($_SESSION['usuario']->getNombre()); ?>
+                </div>
+                <a class="nav-link text-white py-3" href="?controller=Log&action=cerrarSesion">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                </a>
+            </li>
+            <?php else: ?>
+            <li class="nav-item border-top border-secondary mt-3 pt-3">
+                <a class="nav-link text-white py-3" href="?controller=Log&action=verLogin">
+                    <i class="bi bi-person"></i> Iniciar sesión
+                </a>
+            </li>
+            <?php endif; ?>
         </ul>
     </div>
 </div>

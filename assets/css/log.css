@@ -66,7 +66,7 @@
 /* ===== LOGIN CONTAINER ===== */
 .login-container {
     width: 100%;
-    max-width: 420px;
+    max-width: 650px;
     padding: 20px;
     z-index: 5;
 }
@@ -76,7 +76,7 @@
     background: rgba(30, 30, 30, 0.95);
     border: 1px solid rgba(166, 109, 86, 0.2);
     border-radius: 8px;
-    padding: 50px 40px;
+    padding: 35px 50px;
     backdrop-filter: blur(20px);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 }
@@ -84,7 +84,7 @@
 /* ===== LOGO ===== */
 .login-logo {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 .login-logo img {
@@ -102,7 +102,7 @@
     letter-spacing: 3px;
     color: var(--cupra-white);
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 /* ===== ERROR MESSAGE ===== */
@@ -127,7 +127,7 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
 .form-group {
@@ -179,7 +179,7 @@
     letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
 .btn-login:hover {
@@ -190,8 +190,8 @@
 /* ===== FOOTER ===== */
 .login-footer {
     text-align: center;
-    margin-top: 30px;
-    padding-top: 25px;
+    margin-top: 22px;
+    padding-top: 20px;
     border-top: 1px solid var(--cupra-gray-dark);
 }
 

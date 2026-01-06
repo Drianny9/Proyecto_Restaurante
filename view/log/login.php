@@ -50,8 +50,8 @@ $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
                 </div>
                 
                 <div class="form-group">
-                    <label for="contraseña">Contraseña</label>
-                    <input type="password" id="contraseña" name="contraseña" placeholder="••••••••" required>
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
                 </div>
 
                 <button type="submit" class="btn-login">

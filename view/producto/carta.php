@@ -37,7 +37,17 @@
                         <label class="filtro-item">
                             <input type="checkbox" class="filtro-checkbox" data-categoria="<?= $categoria->getIdCategoria() ?>">
                             <div class="filtro-icono">
-                                <!-- Espacio reservado para imagen de categoría -->
+                                <?php 
+                                    // Mapeo de categorías a imágenes para poder verlo en el server
+                                    $imagenCategoria = '';
+                                    switch($categoria->getIdCategoria()) {
+                                        case 1: $imagenCategoria = 'Entrante.webp'; break;
+                                        case 2: $imagenCategoria = 'Principal.webp'; break;
+                                        case 3: $imagenCategoria = 'Bebida.webp'; break;
+                                        case 4: $imagenCategoria = 'Postre.webp'; break;
+                                    }
+                                ?>
+                                <img src="assets/images/filtros/<?= $imagenCategoria ?>" alt="<?= $categoria->getNombre() ?>">
                             </div>
                             <span class="filtro-nombre"><?= strtoupper($categoria->getNombre()) ?></span>
                         </label>

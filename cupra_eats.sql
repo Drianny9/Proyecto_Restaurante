@@ -78,7 +78,7 @@ CREATE TABLE `log` (
   `id_log` int(10) UNSIGNED NOT NULL,
   `accion` varchar(100) NOT NULL,
   `fecha_hora` datetime NOT NULL,
-  `id_usuario` int(10) UNSIGNED NOT NULL
+  `id_usuario` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -201,7 +201,7 @@ CREATE TABLE `usuario` (
   `id_usuario` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `email` varchar(120) NOT NULL,
-  `contraseña` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `direccion` varchar(200) DEFAULT NULL,
   `telefono` varchar(30) DEFAULT NULL,
   `rol` varchar(50) DEFAULT NULL
@@ -211,7 +211,7 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `contraseña`, `direccion`, `telefono`, `rol`) VALUES
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `direccion`, `telefono`, `rol`) VALUES
 (1, 'Usuario Prueba', 'prueba@gmail.com', '$2y$10$iEs9FcwjNpnLFlQJkdwvWeNs7IuT58TZXY.z6uz.Dm7JSZB5Um3xa', 'Dirección ejemplo', '600000000', 'admin'),
 (2, 'Drianny Batalla Ulises', 'drianny@gmail.com', '$2y$10$TlzGSmhW9NZBizamUjO5FeU3n7fAQa7ouYQ7n3wmLpcdc3oRl/Xam', '', '', 'user');
 

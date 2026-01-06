@@ -22,7 +22,7 @@
 
             <div class="d-flex gap-3">
                 <button class="btn btn-outline-light rounded-0 px-4 py-2">ENCUÉNTRANOS</button>
-                <a href="?controller=Producto&action=verCarta" class="btn btn-light rounded-0 px-4 py-2 fw-bold">CONFIGURADOR</a>
+                <a href="?controller=Producto&action=verCarta" class="btn btn-light rounded-0 px-4 py-2 fw-bold">VER CARTA</a>
             </div>
         </div>
     </div>
@@ -188,7 +188,7 @@
 
                 <!-- Botón Ver -->
                 <div class="col-md-3 d-flex align-items-end">
-                    <button class="btn btn-cupra-solid w-100 py-3">VER</button>
+                    <button class="btn btn-cupra-solid w-100 py-3">RESERVA YA</button>
                 </div>
             </div>
 

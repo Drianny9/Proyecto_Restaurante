@@ -27,7 +27,7 @@
             <a href="?controller=Home&action=verHome" class="sidebar-link">
                 <i class="bi bi-arrow-left"></i> Volver a la web
             </a>
-            <a href="?controller=Usuario&action=logout" class="sidebar-link sidebar-link-danger">
+            <a href="?controller=Log&action=cerrarSesion" class="sidebar-link sidebar-link-danger">
                 <i class="bi bi-box-arrow-right"></i> Cerrar sesión
             </a>
         </div>
@@ -314,9 +314,9 @@
                         <input type="email" class="form-control" id="usuario-email" required>
                     </div>
                     
-                    <div class="mb-3" id="campo-contraseña">
-                        <label for="usuario-contraseña" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="usuario-contraseña">
+                    <div class="mb-3" id="campo-password">
+                        <label for="usuario-password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="usuario-password">
                         <small class="text-muted">Dejar vacío para mantener la contraseña actual (al editar)</small>
                     </div>
                     

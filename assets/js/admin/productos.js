@@ -2,8 +2,10 @@
 
 //========CARGAR PRODUCTOS========
 function cargarProductos() {
+    console.log('Cargando productos...');
     fetch('api/productos.php')
         .then(response => response.json()).then(data => {
+            console.log('Respuesta productos:', data);
             if (data.estado === 'Exito') {
                 mostrarProductos(data.data);
             }else {
