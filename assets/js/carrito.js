@@ -25,25 +25,32 @@ function guardarCarrito(carrito) {
 async function verificarOfertas(carrito) {
     const carritoConOfertas = [];
     
-    for (const item of carrito) {
+    for (const producto of carrito) {
         try {
-            const response = await fetch(`api/ofertas.php?producto=${item.id_producto}`);
+            const response = await fetch(`api/ofertas.php?producto=${producto.id_producto}`);
             const resultado = await response.json();
             
-            const itemConOferta = { ...item };
+            // Crear una copia del producto original
+            const prodConOferta = {
+                id_producto: producto.id_producto,
+                nombre: producto.nombre,
+                precio: producto.precio,
+                imagen: producto.imagen,
+                cantidad: producto.cantidad
+            };
             
             // La API devuelve {estado, data} - data puede ser null si no hay oferta
             if (resultado.estado === 'Exito' && resultado.data) {
                 const oferta = resultado.data;
                 // Calcular precio con oferta
-                let precioFinal = item.precio;
+                let precioFinal = producto.precio;
                 
                 // Prioridad 1: Precio especial
                 if (oferta.precio_especial && oferta.precio_especial > 0) {
                     precioFinal = parseFloat(oferta.precio_especial);
-                    itemConOferta.oferta = {
+                    prodConOferta.oferta = {
                         tipo: 'precio_especial',
-                        precio_original: item.precio,
+                        precio_original: producto.precio,
                         precio_oferta: precioFinal,
                         nombre: oferta.nombre,
                         id_oferta: oferta.id_oferta
@@ -52,10 +59,10 @@ async function verificarOfertas(carrito) {
                 // Prioridad 2: Descuento porcentual
                 else if (oferta.descuento_porcentaje && oferta.descuento_porcentaje > 0) {
                     const descuento = oferta.descuento_porcentaje / 100;
-                    precioFinal = item.precio * (1 - descuento);
-                    itemConOferta.oferta = {
+                    precioFinal = producto.precio * (1 - descuento);
+                    prodConOferta.oferta = {
                         tipo: 'descuento_porcentaje',
-                        precio_original: item.precio,
+                        precio_original: producto.precio,
                         precio_oferta: precioFinal,
                         porcentaje: oferta.descuento_porcentaje,
                         nombre: oferta.nombre,
@@ -64,7 +71,7 @@ async function verificarOfertas(carrito) {
                 }
                 // Prioridad 3: Oferta por cantidad (2x1, etc.)
                 else if (oferta.cantidad && oferta.cantidad > 1) {
-                    itemConOferta.oferta = {
+                    prodConOferta.oferta = {
                         tipo: 'cantidad',
                         cantidad_requerida: parseInt(oferta.cantidad),
                         nombre: oferta.nombre,
@@ -72,13 +79,13 @@ async function verificarOfertas(carrito) {
                     };
                 }
                 
-                itemConOferta.precio_con_oferta = precioFinal;
+                prodConOferta.precio_con_oferta = precioFinal;
             }
             
-            carritoConOfertas.push(itemConOferta);
+            carritoConOfertas.push(prodConOferta);
         } catch (error) {
             console.error('Error al verificar ofertas:', error);
-            carritoConOfertas.push(item);
+            carritoConOfertas.push(producto);
         }
     }
     
@@ -142,8 +149,18 @@ function vaciarCarrito(){
 
 
 
-//Calcular total de precio
-function calcularTotal(){
+//Calcular total de precio (con ofertas aplicadas)
+async function calcularTotal(){
+    const carrito = obtenerCarrito();
+    const carritoConOfertas = await verificarOfertas(carrito);
+    return carritoConOfertas.reduce((total, producto) => {
+        const precioFinal = producto.precio_con_oferta || producto.precio;
+        return total + (precioFinal * producto.cantidad);
+    }, 0);
+}
+
+// Versión síncrona para calcular total sin ofertas (fallback)
+function calcularTotalSinOfertas(){
     const carrito = obtenerCarrito();
     return carrito.reduce((total, producto) => total + (producto.precio * producto.cantidad), 0);
 }
@@ -353,7 +370,7 @@ function tramitarPedido() {
     window.location.href = '?controller=Carrito&action=checkout';
 }
 
-function finalizarPedido() {
+async function finalizarPedido() {
     const carrito = obtenerCarrito();
     
     if (carrito.length === 0) {
@@ -361,13 +378,17 @@ function finalizarPedido() {
         return;
     }
     
+    // Verificar ofertas antes de enviar
+    const carritoConOfertas = await verificarOfertas(carrito);
+    const total = await calcularTotal();
+    
     fetch('api/carrito.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             accion: 'procesar',
-            productos: carrito,
-            total: calcularTotal()
+            productos: carritoConOfertas,
+            total: total
         })
     })
     .then(response => response.json())

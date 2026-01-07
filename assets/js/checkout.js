@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Renderizar productos en checkout
-function renderizarCheckout() {
+async function renderizarCheckout() {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const contenedor = document.getElementById('checkout-productos');
     const subtotalElement = document.getElementById('checkout-subtotal');
@@ -32,18 +32,34 @@ function renderizarCheckout() {
         return;
     }
     
+    // Verificar ofertas
+    const carritoConOfertas = await verificarOfertas(carrito);
+    
     let html = '';
     let subtotalCalc = 0;
     
-    carrito.forEach(item => {
-        const precio = item.precio * item.cantidad;
+    carritoConOfertas.forEach(item => {
+        const precioUnitario = item.precio_con_oferta || item.precio;
+        const precio = precioUnitario * item.cantidad;
         subtotalCalc += precio;
+        
+        // Mostrar badge de oferta si existe
+        let badgeOferta = '';
+        if (item.oferta) {
+            if (item.oferta.tipo === 'precio_especial') {
+                badgeOferta = '<span class="badge bg-danger ms-2">Precio Especial</span>';
+            } else if (item.oferta.tipo === 'descuento_porcentaje') {
+                badgeOferta = `<span class="badge bg-warning text-dark ms-2">-${item.oferta.porcentaje}%</span>`;
+            }
+        }
+        
         html += `
             <div class="checkout-producto d-flex align-items-center gap-3 mb-3">
                 <img src="assets/images/carta/${item.imagen}" alt="${item.nombre}" class="checkout-producto-img">
                 <div class="flex-grow-1">
-                    <span class="text-white">${item.nombre}</span>
+                    <span class="text-white">${item.nombre}</span>${badgeOferta}
                     ${item.cantidad > 1 ? `<span class="text-white-50 small"> x${item.cantidad}</span>` : ''}
+                    ${item.oferta && item.precio !== precioUnitario ? `<br><small class="text-decoration-line-through text-muted">${item.precio.toFixed(2)} €/u</small> <small class="text-danger">${precioUnitario.toFixed(2)} €/u</small>` : ''}
                 </div>
                 <span class="text-white fw-bold">${precio.toFixed(2).replace('.', ',')} €</span>
             </div>
@@ -62,7 +78,7 @@ function renderizarCheckout() {
 }
 
 // Procesar el pago
-function procesarPago() {
+async function procesarPago() {
     const nombre = document.getElementById('nombre-completo').value;
     const correo = document.getElementById('correo').value;
     const direccion = document.getElementById('direccion').value;
@@ -80,10 +96,14 @@ function procesarPago() {
         return;
     }
     
-    // Calcular total
+    // Verificar ofertas antes de enviar
+    const carritoConOfertas = await verificarOfertas(carrito);
+    
+    // Calcular total con ofertas aplicadas
     let subtotal = 0;
-    carrito.forEach(item => {
-        subtotal += item.precio * item.cantidad;
+    carritoConOfertas.forEach(item => {
+        const precioFinal = item.precio_con_oferta || item.precio;
+        subtotal += precioFinal * item.cantidad;
     });
     const total = subtotal * 1.10; // Con IVA
     
@@ -93,7 +113,7 @@ function procesarPago() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             accion: 'procesar',
-            productos: carrito,
+            productos: carritoConOfertas,
             total: total,
             datos_cliente: {
                 nombre: nombre,

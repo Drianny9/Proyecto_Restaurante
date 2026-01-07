@@ -51,8 +51,15 @@ function procesarPedido($data) {
         foreach ($productos as $item) {
             $id_producto = intval($item['id_producto']);
             $cantidad = intval($item['cantidad']);
-            $precio_unidad = floatval($item['precio']);
-            $id_oferta = null; // No hay oferta por defecto
+            
+            // Usar precio con oferta si existe, sino el precio normal
+            $precio_unidad = isset($item['precio_con_oferta']) ? floatval($item['precio_con_oferta']) : floatval($item['precio']);
+            
+            // Obtener id_oferta si existe
+            $id_oferta = null;
+            if (isset($item['oferta']) && isset($item['oferta']['id_oferta'])) {
+                $id_oferta = intval($item['oferta']['id_oferta']);
+            }
             
             LineaPedidoDAO::crearLineaPedido($id_pedido, $id_producto, $precio_unidad, $cantidad, $id_oferta);
         }
