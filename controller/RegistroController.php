@@ -15,6 +15,7 @@ include_once 'model/LogDAO.php';
                 $nombre = trim($_POST['nombre']); //trim limpia espacios en blanco
                 $email = trim($_POST['email']);
                 $password = $_POST['password'];
+                //Estas dos son opcionales por lo que pueden ser null
                 $direccion = isset($_POST['direccion']) ? trim($_POST['direccion']) : null;
                 $telefono = isset($_POST['telefono']) ? trim($_POST['telefono']) : null;
 
@@ -33,7 +34,8 @@ include_once 'model/LogDAO.php';
                 }
 
                 //Con filter_var validamos si el email es correcto
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                //Lo que esta en mayus es una constante de php que tenga texto antes de @ y un dominio valido(.com por ejemplo)
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { 
                     $error = "El email no es válido.";
                     include_once 'view/log/registro.php';
                     return;

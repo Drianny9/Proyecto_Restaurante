@@ -11,7 +11,7 @@ switch ($metodo) {
         if (isset($_GET['id'])) {
             $producto = ProductoDAO::getProductoById($_GET['id']);
             if ($producto) {
-                respuestaJSON('Exito', $producto);
+                respuestaJSON('Exito', $producto); //PHP devuelve un JSON 
             } else {
                 respuestaJSON('Fallido', null, 'Producto no encontrado', 404);
             }
@@ -24,7 +24,7 @@ switch ($metodo) {
 
     case 'POST':
         //Crear nuevo producto
-        //json_decode convierte de json a array asociativo de php
+        // Se lee el body en formato JSON (php://input) y se convierte a array asociativo con json_decode.
         $data = json_decode(file_get_contents("php://input"), true); //file_get_contents obtiene el json que envia el cliente
 
         //Validaciones de campos obligatorios

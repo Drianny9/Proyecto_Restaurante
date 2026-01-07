@@ -36,11 +36,12 @@ class LogDAO{
     public static function crearLog($accion, $id_usuario = null) {
         $con = Database::connect();
         $fecha_hora = date('Y-m-d H:i:s');
-        
+        //para los inicios de sesion
         if ($id_usuario !== null) {
             $stmt = $con->prepare("INSERT INTO `log` (accion, fecha_hora, id_usuario) VALUES (?, ?, ?)");
             $stmt->bind_param('ssi', $accion, $fecha_hora, $id_usuario);
         } else {
+            //Para los registros nuevos
             $stmt = $con->prepare("INSERT INTO `log` (accion, fecha_hora, id_usuario) VALUES (?, ?, NULL)");
             $stmt->bind_param('ss', $accion, $fecha_hora);
         }

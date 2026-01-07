@@ -31,16 +31,19 @@ class CarritoController{
             exit;
         }
         
+        //Convertimos el valor a entero para evitar valores no validos o errores.
         $id_pedido = isset($_GET['id']) ? intval($_GET['id']) : 0;
         
         if ($id_pedido > 0) {
             $pedido = PedidoDAO::getPedidoById($id_pedido);
             $lineas = LineaPedidoDAO::getLineasByPedido($id_pedido);
             
-            // Obtener datos de productos para cada línea
+            //Array para almacenar cada linea de pedido junto a su producto correspondiente
             $productosLineas = [];
+            //Obtenemos todas las lineas de pedido
             foreach ($lineas as $linea) {
                 $producto = ProductoDAO::getProductoById($linea->getId_producto());
+                //Guardamos linea y producto juntos para acceder a los datos facilmente
                 $productosLineas[] = [
                     'linea' => $linea,
                     'producto' => $producto

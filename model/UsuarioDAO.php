@@ -45,7 +45,7 @@ class UsuarioDAO{
         if ($result->num_rows > 0) {
             $usuario = $result->fetch_object('Usuario');
 
-            //Verifica la contraseña (si está hasheada/encriptada)
+            //Recibe la contraseña escrita por usuario y el hash guardado en la BD y devuelve true o false cuando calcula el hash
             if (password_verify($password, $usuario->getPassword())) {
                 $con->close();
                 return $usuario; //Login correcto
@@ -71,7 +71,7 @@ class UsuarioDAO{
             return false; //Ya existe el email
         }
 
-        //Hasheamos la contraseña
+        //El metodo recibe una texto plano y lo convierte a una cadena
         $password_hash = password_hash($password, PASSWORD_DEFAULT); //PASSWORD_DEFAULT es para que php use el algoritmo más fuerte que tiene instalado
 
         //Insertamos nuevo usuario

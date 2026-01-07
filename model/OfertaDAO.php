@@ -9,7 +9,7 @@ class OfertaDAO{
         $con = Database::connect();
         $stmt = $con->prepare("INSERT INTO `oferta` (nombre, descripcion, descuento_porcentaje, fecha_inicio, fecha_fin, activa) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param('ssdssi', 
-            $oferta->nombre, 
+            $oferta->nombre, //Accedemos a las propiedades del objeto oferta para asignarle los valores en el INSERT
             $oferta->descripcion, 
             $oferta->descuento_porcentaje,
             $oferta->fecha_inicio,
@@ -137,8 +137,11 @@ class OfertaDAO{
         return $result;
     }
 
+    //Este metodo obtiene la oferta activa asociada a un producto
+    //Se hace un JOIN para relacionar los productos con sus ofertas, por si tiene mas de una oferta activa o para revisar que no tenga inactivas
     public static function getOfertaPorProducto($id_producto){
         $con = Database::connect();
+        //o. y op. son alias de la tabla oferta y oferta_producto
         $stmt = $con->prepare("
             SELECT o.*, op.precio_especial, op.cantidad 
             FROM `oferta` o

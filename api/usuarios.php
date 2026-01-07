@@ -36,6 +36,7 @@ function obtenerUsuarios() {
     $resultado = [];
     
     foreach ($usuarios as $usuario) {
+        //Es importante crear un array solo con los campos que queremos obtener para no filtrar contraseña por ejemplo
         $resultado[] = [
             'id_usuario' => $usuario->getId_usuario(),
             'nombre' => $usuario->getNombre(),
@@ -72,6 +73,7 @@ function obtenerUsuario($id) {
 function crearUsuario() {
     $data = json_decode(file_get_contents("php://input"), true);
     
+    //comprobamos que se pasan los datos obligatorios
     if (!isset($data['nombre']) || !isset($data['email']) || !isset($data['password'])) {
         respuestaJSON('Fallido', null, 'Datos incompletos: nombre, email y contraseña son requeridos', 400);
         return;

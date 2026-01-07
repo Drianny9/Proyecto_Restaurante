@@ -7,6 +7,8 @@ include_once __DIR__ . '/../model/PedidoDAO.php';
 include_once __DIR__ . '/../model/LineaPedidoDAO.php';
 include_once __DIR__ . '/../model/ProductoDAO.php';
 
+// Endpoint de API para finalizar el proceso de compra.
+// Está orientado a un caso de uso ("procesar pedido") y no a un CRUD genérico.
 $metodo = $_SERVER['REQUEST_METHOD'];
 
 if ($metodo === 'POST') {
@@ -31,15 +33,16 @@ function procesarPedido($data) {
         return;
     }
     
-    $productos = isset($data['productos']) ? $data['productos'] : [];
-    $total = isset($data['total']) ? floatval($data['total']) : 0;
+    //Validamos que el carrito contiene productos
+    $productos = isset($data['productos']) ? $data['productos'] : []; //Si no hay productos array vacio
+    $total = isset($data['total']) ? floatval($data['total']) : 0; //Si no hay total es 0
     
     if (empty($productos)) {
         respuestaJSON('Fallido', null, 'El carrito está vacío', 400);
         return;
     }
     
-    // Obtener id_usuario del objeto Usuario en la sesión
+    // Obtener id_usuario del objeto Usuario en la sesión para asociar el pedido al usuario
     $usuario = $_SESSION['usuario'];
     $id_usuario = $usuario->getId_usuario();
     

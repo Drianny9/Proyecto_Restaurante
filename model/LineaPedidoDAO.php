@@ -25,6 +25,7 @@ class LineaPedidoDAO{
         $results = $stmt->get_result();
 
         $listaLineasPedido = [];
+        //Almacenamos las lineas de pedido en un array dentro de un bucle para obtenerlas todas
         while ($lineaPedido = $results->fetch_object('LineaPedido')) {
             $listaLineasPedido[] = $lineaPedido;
         }
@@ -50,14 +51,14 @@ class LineaPedidoDAO{
         return $results;
     }
 
-    // Obtener todas las líneas de un pedido
+    // Obtener todas las líneas de un pedido para no perder ningun producto por el camino
     public static function getLineasByPedido($id_pedido) {
         $con = Database::connect();
         $stmt = $con->prepare("SELECT * FROM `linea_pedido` WHERE id_pedido = ?");
         $stmt->bind_param('i', $id_pedido);
         $stmt->execute();
         $results = $stmt->get_result();
-        
+    
         $listaLineas = [];
         while ($linea = $results->fetch_object('LineaPedido')) {
             $listaLineas[] = $linea;
