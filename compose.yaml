@@ -1,0 +1,16 @@
+services:
+  db:
+    image: mysql:latest
+    container_name: mysqldb-cupra
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cupra_eats
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # Esta línea extra carga tu SQL automáticamente al iniciar:
+      - ./cupra_eats.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql-data:

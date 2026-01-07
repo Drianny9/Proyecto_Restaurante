@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-01-2026 a las 16:24:57
+-- Tiempo de generación: 06-01-2026 a las 17:24:14
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -62,11 +62,13 @@ CREATE TABLE `linea_pedido` (
 --
 
 INSERT INTO `linea_pedido` (`id_linea`, `id_pedido`, `id_producto`, `id_oferta`, `precio_unidad`, `cantidad`) VALUES
-(1, 1, 2, NULL, 12.00, 1),
-(2, 1, 1, NULL, 16.50, 1),
 (39, 16, 1, NULL, 16.50, 1),
 (40, 16, 3, NULL, 15.00, 1),
-(41, 16, 5, NULL, 6.00, 1);
+(41, 16, 5, NULL, 6.00, 1),
+(42, 17, 1, NULL, 16.50, 1),
+(43, 17, 11, NULL, 9.50, 1),
+(44, 18, 2, NULL, 12.00, 1),
+(45, 18, 1, NULL, 16.50, 1);
 
 -- --------------------------------------------------------
 
@@ -80,6 +82,19 @@ CREATE TABLE `log` (
   `fecha_hora` datetime NOT NULL,
   `id_usuario` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `log`
+--
+
+INSERT INTO `log` (`id_log`, `accion`, `fecha_hora`, `id_usuario`) VALUES
+(2, 'PRODUCTO_CREADO: Producto \'Prueba Test\' creado (ID categoría: 1, Precio: 15.99€)', '2026-01-06 16:29:39', NULL),
+(3, 'LOGOUT: Usuario admin@gmail.com cerró sesión', '2026-01-06 16:46:04', 1),
+(4, 'LOGIN_EXITO: Usuario admin@gmail.com inició sesión', '2026-01-06 16:46:08', 1),
+(5, 'LOGOUT: Usuario admin@gmail.com cerró sesión', '2026-01-06 16:46:51', 1),
+(6, 'REGISTRO_NUEVO: Usuario soy@gmail.com creó una cuenta', '2026-01-06 16:47:09', 5),
+(7, 'LOGOUT: Usuario soy@gmail.com cerró sesión', '2026-01-06 16:47:12', 5),
+(8, 'LOGIN_EXITO: Usuario admin@gmail.com inició sesión', '2026-01-06 16:47:16', 1);
 
 -- --------------------------------------------------------
 
@@ -147,8 +162,9 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id_pedido`, `fecha`, `estado`, `importe_total`, `id_usuario`) VALUES
-(1, '2026-01-05 12:41:29', 'pendiente', 31.35, 1),
-(16, '2026-01-05 13:22:39', 'pendiente', 41.25, 1);
+(16, '2026-01-05 13:22:39', 'pendiente', 41.25, 1),
+(17, '2026-01-05 17:06:42', 'pendiente', 28.60, 1),
+(18, '2026-01-06 16:58:19', 'pendiente', 31.35, 1);
 
 -- --------------------------------------------------------
 
@@ -201,7 +217,7 @@ CREATE TABLE `usuario` (
   `id_usuario` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `email` varchar(120) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `direccion` varchar(200) DEFAULT NULL,
   `telefono` varchar(30) DEFAULT NULL,
   `rol` varchar(50) DEFAULT NULL
@@ -212,8 +228,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `email`, `password`, `direccion`, `telefono`, `rol`) VALUES
-(1, 'Usuario Prueba', 'prueba@gmail.com', '$2y$10$iEs9FcwjNpnLFlQJkdwvWeNs7IuT58TZXY.z6uz.Dm7JSZB5Um3xa', 'Dirección ejemplo', '600000000', 'admin'),
-(2, 'Drianny Batalla Ulises', 'drianny@gmail.com', '$2y$10$TlzGSmhW9NZBizamUjO5FeU3n7fAQa7ouYQ7n3wmLpcdc3oRl/Xam', '', '', 'user');
+(1, 'Drianny', 'admin@gmail.com', '$2y$10$iEs9FcwjNpnLFlQJkdwvWeNs7IuT58TZXY.z6uz.Dm7JSZB5Um3xa', 'Dirección ejemplo', '600000000', 'admin'),
+(2, 'Drianny Batalla Ulises', 'drianny@gmail.com', '$2y$10$TlzGSmhW9NZBizamUjO5FeU3n7fAQa7ouYQ7n3wmLpcdc3oRl/Xam', '', '', 'user'),
+(3, 'Hola', 'hola@gmail.com', '$2y$10$LYkdOooBEIAM2bhKxMPzQ.I/CtpA6comjWe/QolyGx9wJoLz1oT/K', '', '', 'user'),
+(5, 'soyyo', 'soy@gmail.com', '$2y$10$EX6FgGzEKvvUo3.Ixd6VUeLfEJxHe.gc6X9/bPHqq0rcUZu5qz4B6', '', '', 'user');
 
 --
 -- Índices para tablas volcadas
@@ -289,13 +307,13 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `linea_pedido`
 --
 ALTER TABLE `linea_pedido`
-  MODIFY `id_linea` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_linea` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `log`
 --
 ALTER TABLE `log`
-  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_log` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `oferta`
@@ -307,19 +325,19 @@ ALTER TABLE `oferta`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_pedido` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_producto` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
