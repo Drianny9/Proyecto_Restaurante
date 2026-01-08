@@ -1,15 +1,14 @@
-// ========================================
-// CARRUSEL 3D - SERVICIOS CUPRA
-// ========================================
+// ====CARRUSEL 3D - SERVICIOS CUPRA====
+
 
 document.addEventListener('DOMContentLoaded', function() {
-    
+    //Llamamos a los componentes del carrusel
     const cards = document.querySelectorAll('.carousel-card-3d');
     const indicators = document.querySelectorAll('.carousel-indicators-3d .indicator');
     const serviceTitle = document.querySelector('.service-title');
     const serviceDescription = document.querySelector('.service-description');
     
-    // Datos de cada servicio
+    // Asociamos cada card con su descripcion
     const servicesData = [
         {
             title: 'CUPRA TASTING',
