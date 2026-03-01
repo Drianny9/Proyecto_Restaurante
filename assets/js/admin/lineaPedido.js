@@ -7,7 +7,7 @@ function cargarLineasPedido(idPedido = null) {
         url += '?id_pedido=' + idPedido;
     }
     
-    fetch(url)
+    fetch(url) //Obtengo el url construido
         .then(response => response.json())
         .then(data => {
             if (data.estado === 'Exito') {
@@ -24,7 +24,7 @@ function cargarLineasPedido(idPedido = null) {
 //========MOSTRAR LINEAS EN LA TABLA========
 function mostrarLineasPedido(lineas) {
     const tbody = document.getElementById('tabla-lineas-pedido');
-    if (!tbody) return;
+    if (!tbody) return; //Ponemos el return para que salga de la funcion si no encuentra tbody
     
     tbody.innerHTML = '';
     
@@ -70,7 +70,7 @@ function configurarBotonesLineasPedido() {
     document.querySelectorAll('.btn-eliminar-linea').forEach(boton => {
         boton.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
-            eliminarLineaPedido(id);
+            eliminarLineaPedido(id); //Llamamos a la funcion para eliminar el pedido
         });
     });
 }
@@ -120,19 +120,20 @@ function configurarBotonesNuevaLinea() {
 function abrirModalNuevaLinea() {
     const form = document.getElementById('formLineaPedido');
     if (form) {
-        form.reset();
+        form.reset(); //con .reset eliminamos los campos introducidos anteriormente para que no se guarden
     }
-    document.getElementById('linea-id').value = '';
+    document.getElementById('linea-id').value = ''; //Vaciamos el id para que en la nueva no se mantenga el valor anterior
     
     document.getElementById('modalLineaTitulo').textContent = 'Nueva Línea de Pedido';
-    
-    const modal = new bootstrap.Modal(document.getElementById('modalLineaPedido'));
-    modal.show();
+
+    //Llamamos a bootstrap para hacer una ventana interactiva, ya tiene funciones por defecto
+    const modal = new bootstrap.Modal(document.getElementById('modalLineaPedido')); 
+    modal.show();//con .show() mostramos el modal pero ademas se encarga de añadirle CSS
 }
 
 //========ABRIR MODAL PARA EDITAR LINEA========
 function abrirModalEditarLinea(id) {
-    fetch('api/lineas_pedido.php?id=' + id)
+    fetch('api/lineas_pedido.php?id=' + id) //Necesitamos id para abrir la linea de pedido que seleccionamos
         .then(response => response.json())
         .then(data => {
             if (data.estado === 'Exito') {

@@ -13,6 +13,7 @@ async function cargarOfertasEnCarta() {
         const precioBase = parseFloat(tarjeta.dataset.precioBase);
         
         try {
+            //Necesitamos await para que espere a cargar estas variables
             const response = await fetch(`api/ofertas.php?producto=${idProducto}`);
             const resultado = await response.json();
             

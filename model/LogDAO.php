@@ -25,7 +25,7 @@ class LogDAO{
         $results = $stmt->get_result();
 
         $listaLogs = [];
-        while ($log = $results->fetch_object('Log')) {
+        while ($log = $results->fetch_object('Log')) { //fetch_object coge los valores de la clase log y crea un objeto
             $listaLogs[] = $log;
         }
 

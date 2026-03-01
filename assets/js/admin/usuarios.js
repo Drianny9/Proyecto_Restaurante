@@ -2,7 +2,7 @@
 // MODULO DE USUARIOS - Panel Admin
 // ========================================
 
-// Cargar usuarios en la tabla
+// Cargar usuarios en la tabla con peticion asincrona
 function cargarUsuarios() {
     fetch('api/usuarios.php')
         .then(response => response.json())

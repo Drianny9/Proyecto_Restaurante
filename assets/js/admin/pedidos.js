@@ -20,22 +20,24 @@ function cargarPedidos() {
         .catch(error => console.error('Error:', error));
 }
 
-// Cargar usuarios en el select de filtro
+// Cargar usuarios en el select del fitlro del panel de admin
 function cargarSelectUsuarios() {
     const select = document.getElementById('filtro-usuario');
-    if (!select) return;
-    
+    if (!select) return; //Si no encuenetra el select la funcion para aqui
     // Obtener usuarios únicos de los pedidos
+    //new Map guarda una lista de parejas [Clave, Valor] y no admite repetidos
     const usuariosUnicos = [...new Map(todosLosPedidos.map(p => [p.id_usuario, { id: p.id_usuario, nombre: p.nombre_usuario }])).values()];
+    //Los ... son para convertir el resultado en un array normal para poder trabajar con el
     
-    // Mantener la primera opción
+    //Cuando borramos filtros pone la primera opcion
     select.innerHTML = '<option value="">Todos los usuarios</option>';
     
+    //Recorre la lista
     usuariosUnicos.forEach(usuario => {
         const option = document.createElement('option');
-        option.value = usuario.id;
+        option.value = usuario.id; //Asignamos valor id para saber por quien filtrar
         option.textContent = usuario.nombre;
-        select.appendChild(option);
+        select.appendChild(option); //Metemos la opcion dentro del select
     });
 }
 
@@ -75,7 +77,7 @@ function mostrarPedidos(pedidos) {
     });
 }
 
-// Obtener clase CSS según estado
+// Creamos un objeto para asignar un estilo CSS a cada estado
 function getEstadoClass(estado) {
     const clases = {
         'pendiente': 'bg-warning text-dark',
@@ -95,7 +97,7 @@ function filtrarPedidos() {
     const filtroEstado = document.getElementById('filtro-estado').value;
     const ordenPrecio = document.getElementById('ordenar-precio').value;
     
-    let pedidosFiltrados = [...todosLosPedidos];
+    let pedidosFiltrados = [...todosLosPedidos]; //... para crear una copia nueva de la lista sin modificar la original
     
     // Filtrar por usuario
     if (filtroUsuario) {

@@ -1,6 +1,6 @@
 <?php
-// Iniciar sesión si no está iniciada para saber si el usuario esta logueado y tambien controlar permisos
-if (session_status() === PHP_SESSION_NONE) {
+// Preparamos la sesion para guardar los datos del usuario y tambien controlar permisos
+if (session_status() === PHP_SESSION_NONE) { //Con session_status() miramos en que estado se encuentra el sistema de sesiones
     session_start();
 }
 
@@ -19,9 +19,9 @@ function respuestaJSON($estado, $data = null, $mensaje = null, $codigo = 200, $r
     if($requiere_login) {$respuesta['requiere_login'] = true;}
     
     //Convertimos el array a json con json_encode()
-    // Usar JSON_INVALID_UTF8_SUBSTITUTE para manejar caracteres mal codificados
+    // Usar JSON_INVALID_UTF8_SUBSTITUTE para manejar caracteres mal codificados en la BD
     // JSON_UNESCAPED_UNICODE para que deje las tildes y las ñ
-    $json = json_encode($respuesta, JSON_INVALID_UTF8_SUBSTITUTE | JSON_UNESCAPED_UNICODE);
+    $json = json_encode($respuesta, JSON_INVALID_UTF8_SUBSTITUTE | JSON_UNESCAPED_UNICODE); //La | la usamos para fusionar los parametros
     if ($json === false) {
         http_response_code(500);
         //json_last... obtiene el mensaje de error de la ultima operacion JSON

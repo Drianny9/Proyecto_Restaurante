@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar navegación entre secciones
     configurarNavegacion();
     
-    // Inicializar módulos
+    // Inicializar módulos en caso de que existan las variables de iniciar y sean funciones
     if (typeof initProductos === 'function') {
         initProductos();
     }
@@ -28,6 +28,7 @@ function configurarNavegacion() {
     //Obtener botones
     const botonesMenu = document.querySelectorAll(".menu-btn");
 
+    //Bucle para que recorra todas las acciones al darle a un boton
     botonesMenu.forEach((boton) => {
         boton.addEventListener('click', function() {
             const seccionObjetivo = boton.getAttribute("data-target");

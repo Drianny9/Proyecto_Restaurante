@@ -2,7 +2,7 @@
 include_once __DIR__ . '/config.php';
 include_once __DIR__ . '/../model/OfertaDAO.php';
 
-// Solo permitir GET
+// Solo permitir GET para protejer la API
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     respuestaJSON('Fallido', null, 'Método no permitido', 405);
 }

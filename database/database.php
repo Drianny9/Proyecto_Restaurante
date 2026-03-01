@@ -23,7 +23,7 @@
 
         // Método estatico para establecer la conexion a la base de datos
         public static function connect(){
-            //Con self le decimos a php que use la variable que tenemos creada arriba
+            //Con self le decimos a php que use la variable que tenemos creada arriba, asi no piensa que es una nueva
             $con = new mysqli(self::$host, self::$user, self::$pass, self::$db, self::$port);
             
             if ($con->connect_error) {

@@ -12,7 +12,7 @@ class Producto implements JsonSerializable {
 
     public function __construct() {}
 
-    //Metodo para serializar a JSON
+    //Metodo para serializar a JSON, ya que al ser los atributos privados no los puede mostrar.
     public function jsonSerialize(): mixed {
         return [
             'id_producto' => $this->id_producto,

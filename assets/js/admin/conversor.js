@@ -35,7 +35,7 @@ function inicializarConversor() {
 //====CAMBIO VISUAL DE MONEDA====
 function cambiarMonedaGlobal(moneda) {
     monedaActual = moneda;
-    const tasa = tasasDeCambio[moneda];
+    const tasa = tasasDeCambio[moneda]; //Aplicamos el equivalente de la moneda que queremos usar
 
     // Definir símbolo
     let simbolo;
@@ -61,7 +61,7 @@ function cambiarMonedaGlobal(moneda) {
 
         //NaN (not a number)
         if (!isNaN(precioBase) && tasa) {
-            const precioFinal = (precioBase * tasa).toFixed(2);
+            const precioFinal = (precioBase * tasa).toFixed(2); //Fijamos a dos decimales
             celda.innerText = `${precioFinal} ${simbolo}`;
         }
     });

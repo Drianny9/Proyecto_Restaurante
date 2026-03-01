@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const categoriasActivas = [];
             filtros.forEach(f => {
                 if (f.checked) {
-                    categoriasActivas.push(f.dataset.categoria);
+                    //.push() incluye un elemento nuevo al final del array
+                    categoriasActivas.push(f.dataset.categoria); //.dataset.categoria lee lo que tengo en el html en el atributo data-categoria
                 }
             });
 
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 // Mostrar solo los de las categorías seleccionadas
                 productos.forEach(p => {
+                    //.includes() es para saber si esta incluido lo que le pedimos dentro de un array
                     if (categoriasActivas.includes(p.dataset.categoria)) {
                         p.style.display = 'flex';
                         p.style.animation = 'fadeIn 0.3s ease';

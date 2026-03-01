@@ -29,8 +29,8 @@ function mostrarProductos(productos) {
     }
     
     productos.forEach(producto => {
-        // Clonar template
-        const clone = template.content.cloneNode(true);
+        // Clonar el template para tener la misma estructura
+        const clone = template.content.cloneNode(true); //true lo copia tal cual, false copia la cascara pero no lo de dentro
         
         // Rellenar datos
         clone.querySelector('.producto-id').textContent = producto.id_producto;
