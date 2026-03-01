@@ -402,7 +402,8 @@
 </div>
 
 <!-- JavaScript modular para el panel admin -->
-<!-- Primero cargamos los módulos, luego inicializacion.js que los inicializa -->
+<!-- Primero cargamos ApiService, luego los módulos, y finalmente inicializacion.js que los inicializa -->
+<script src="assets/js/api/ApiService.js"></script>
 <script src="assets/js/admin/productos.js"></script>
 <script src="assets/js/admin/usuarios.js"></script>
 <script src="assets/js/admin/pedidos.js"></script>
