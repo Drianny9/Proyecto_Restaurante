@@ -171,7 +171,7 @@ class Carrito {
         this.actualizarContador();
     }
 
-    //Calcular total de precio con ofertas aplicadas - usa reduce
+    //Calcular total de precio con ofertas aplicadas
     async calcularTotal() {
         const carrito = this.obtener();
         const carritoConOfertas = await this.verificarOfertas(carrito);
@@ -182,7 +182,7 @@ class Carrito {
         }, 0);
     }
 
-    //Versión síncrona para calcular total sin ofertas (fallback) - usa reduce
+    //Versión síncrona para calcular total sin ofertas
     calcularTotalSinOfertas() {
         return this.obtener().reduce((total, producto) => {
             return total + (producto.precio * producto.cantidad);

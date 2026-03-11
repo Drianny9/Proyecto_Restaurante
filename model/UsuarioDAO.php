@@ -96,6 +96,23 @@ class UsuarioDAO{
     // Eliminar usuario
     public static function eliminarUsuario($id_usuario) {
         $con = Database::connect();
+
+        // Eliminar logs del usuario (FK sin ON DELETE CASCADE)
+        $stmt = $con->prepare("DELETE FROM log WHERE id_usuario = ?");
+        $stmt->bind_param('i', $id_usuario);
+        $stmt->execute();
+
+        // Eliminar lineas de pedido de los pedidos del usuario
+        $stmt = $con->prepare("DELETE lp FROM linea_pedido lp INNER JOIN pedido p ON lp.id_pedido = p.id_pedido WHERE p.id_usuario = ?");
+        $stmt->bind_param('i', $id_usuario);
+        $stmt->execute();
+
+        // Eliminar pedidos del usuario (FK sin ON DELETE CASCADE)
+        $stmt = $con->prepare("DELETE FROM pedido WHERE id_usuario = ?");
+        $stmt->bind_param('i', $id_usuario);
+        $stmt->execute();
+
+        // Eliminar el usuario
         $stmt = $con->prepare("DELETE FROM usuario WHERE id_usuario = ?");
         $stmt->bind_param('i', $id_usuario);
         $results = $stmt->execute();

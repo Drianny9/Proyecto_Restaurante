@@ -87,7 +87,7 @@ class LogAdmin {
     }
 
     //========LIMPIAR TODOS LOS LOGS========
-    //Usa Promise.all + map para eliminar todos en paralelo
+    //Usamos Promise.all + map para eliminar todos en paralelo
     async limpiarTodos() {
         if (!confirm('¿Estás seguro de que quieres eliminar TODOS los logs? Esta acción no se puede deshacer.')) return;
 

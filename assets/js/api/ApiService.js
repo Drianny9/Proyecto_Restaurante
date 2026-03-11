@@ -11,10 +11,11 @@ class ApiService {
         let url = this.baseUrl + endpoint;
 
         //Construir query string con Object.entries + filter + map
+        //Object.entries convierte el objeto en array
         const queryParams = Object.entries(params)
             .filter(([, value]) => value !== undefined && value !== null)
             .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-            .join('&');
+            .join('&'); //Usamos join para unir todo con &
 
         if (queryParams) {
             url += '?' + queryParams;

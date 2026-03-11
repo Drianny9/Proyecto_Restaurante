@@ -48,8 +48,8 @@ include_once 'model/LogDAO.php';
                     return;
                 }
 
-                //Registramos usuario
-                $exito = UsuarioDAO::registrarusuarios($nombre, $email, $password, $direccion, $telefono);
+                //Registramos usuario con rol 'user' por defecto
+                $exito = UsuarioDAO::registrarusuarios($nombre, $email, $password, $direccion, $telefono, 'user');
 
                 if ($exito) {
                     //Obtener el usuario recien creado
